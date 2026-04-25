@@ -14,20 +14,11 @@ main       ← production-ready; merged from dev after review
       └── your-feature-branch
 ```
 
-### Setup (one time)
-
-After cloning, activate the pre-push hook that blocks accidental pushes to `main` or `dev`:
-
-```bash
-git config core.hooksPath .githooks
-```
-
-That's it. The hook runs automatically before every `git push`.
 
 ### Step by step
 
 1. **Fork** the repository to your own GitHub account.
-2. **Clone** your fork and run `git config core.hooksPath .githooks`.
+2. **Clone** your fork, then `cd web && npm install`.
 3. **Create a branch** off `dev` — not `main`, not `dev` itself:
    ```bash
    git checkout dev

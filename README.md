@@ -148,7 +148,6 @@ All three contracts are source-verified. See [`contracts/ARCHITECTURE.md`](contr
 ```bash
 git clone --recurse-submodules https://github.com/harystyleseze/stash.git
 cd stash
-git config core.hooksPath .githooks   # activate pre-push branch protection
 ```
 
 `--recurse-submodules` pulls `forge-std`. If you forgot: `git submodule update --init --recursive`.

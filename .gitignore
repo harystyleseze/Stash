@@ -1,0 +1,22 @@
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Foundry artefacts (inside contracts/) ---
+contracts/cache/
+contracts/out/
+contracts/broadcast/*/31337/
+contracts/broadcast/**/dry-run/
+
+# --- OpenZeppelin (installed via scripts/install-oz.sh from tagged release tarball) ---
+contracts/lib/openzeppelin-contracts/
+
+# --- Logs ---
+*.log

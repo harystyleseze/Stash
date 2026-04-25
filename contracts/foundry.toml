@@ -1,0 +1,41 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+cache_path = "cache"
+solc_version = "0.8.26"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 10_000
+via_ir = false
+bytecode_hash = "none"
+gas_reports = ["FlexibleVault", "FixedVault", "P2PTransfer"]
+
+[fmt]
+line_length = 120
+tab_width = 4
+bracket_spacing = false
+int_types = "long"
+quote_style = "double"
+number_underscore = "thousands"
+
+[fuzz]
+runs = 256
+max_test_rejects = 65_536
+
+[invariant]
+runs = 256
+depth = 64
+fail_on_revert = false
+
+# Named RPCs — reference these with `forge script --rpc-url base_sepolia` (etc.).
+[rpc_endpoints]
+base_sepolia = "${BASE_SEPOLIA_RPC_URL}"
+base_mainnet = "${BASE_MAINNET_RPC_URL}"
+
+# Etherscan V2 unified API — one key covers Base + Base Sepolia (and 60+ other chains).
+[etherscan]
+base_sepolia = {key = "${ETHERSCAN_API_KEY}", chain = 84532, url = "https://api.etherscan.io/v2/api?chainid=84532"}
+base_mainnet = {key = "${ETHERSCAN_API_KEY}", chain = 8453,  url = "https://api.etherscan.io/v2/api?chainid=8453"}

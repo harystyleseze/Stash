@@ -1,0 +1,54 @@
+name: CI
+
+permissions: {}
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  FOUNDRY_PROFILE: ci
+
+jobs:
+  check:
+    name: Foundry project
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    # All Foundry commands run from the contracts workspace.
+    defaults:
+      run:
+        working-directory: ./contracts
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Show Forge version
+        run: forge --version
+
+      # OpenZeppelin Contracts is fetched via tagged release tarball (see contracts/scripts/install-oz.sh)
+      # rather than a git submodule, to avoid git-clone flakiness on CI.
+      - name: Install OpenZeppelin Contracts
+        run: ./scripts/install-oz.sh
+
+      - name: Run Forge fmt
+        run: forge fmt --check
+
+      - name: Run Forge build
+        run: forge build --sizes
+
+      # Fork tests under test/fork/* skip cleanly without BASE_SEPOLIA_RPC_URL / BASE_MAINNET_RPC_URL;
+      # the unit + fuzz + invariant + script suites always run.
+      - name: Run Forge tests
+        run: forge test -vvv
+
+      - name: Forge coverage (production + scripts)
+        run: forge coverage --no-match-path 'test/fork/*' --report summary

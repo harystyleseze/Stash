@@ -1,0 +1,439 @@
+// Background:        #F8FAFC
+// Card:              #FFFFFF
+// Primary (Blue):    #2563EB
+// Primary Soft:      #DBEAFE
+// Text Main:         #0F172A
+// Text Secondary:    #475569
+// Border:            #E2E8F0
+// Success:           #16A34A
+// Warning (Lock):    #F59E0B
+// Danger:            #DC2626
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .dashboard {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        header {
+            width: 100% !important;
+
+        }
+
+        .overview {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .intro {
+                width: 90%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 20px auto;
+
+                .btn {
+                    // width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                    gap: 20px;
+                    margin-top: 30px;
+
+                    .btn1 {
+                        padding: 7px 10px;
+                        border: none;
+                        background-color: blue;
+                        color: white;
+                        border-radius: 10px;
+                        height: max-content;
+
+                        span {
+                            margin-top: -10px;
+                            padding: 0;
+                            background-color: none;
+                            color: white;
+
+                        }
+
+                    }
+
+                    .btn2 {
+                        padding: 7px 10px;
+                        border: 1px solid blue;
+                        background-color: white;
+                        color: blue;
+                        border-radius: 10px;
+                        height: max-content;
+
+                        span {
+                            margin-top: -10px;
+                            padding: 0;
+                            background-color: none;
+                            color: blue;
+
+                        }
+                    }
+
+
+                }
+            }
+
+            .net {
+                width: 90%;
+                margin: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                gap: 20px;
+                margin-top: 30px;
+
+                .balCont {
+                    width: 65%;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    border-radius: 10px;
+                    background-color: rgba(8, 84, 78, 0.4);
+
+                    .balL {
+                        display: flex;
+                        width: 100%;
+
+                        flex-direction: row;
+                        justify-content: space-between;
+
+                        .trend {
+                            padding: 5px;
+                            border-radius: 20px;
+                            height: max-content;
+                            background-color: rgba(15, 156, 38, 0.6);
+
+                        }
+
+                        .bal {
+                            display: flex;
+                            flex-direction: column;
+
+                            b {
+                                color: rgb(62, 61, 61);
+                            }
+
+                            .totalBal {
+                                width: max-content;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                // gap: 20px;
+                                margin-top: 10px;
+
+                                h2 {
+                                    margin: 0;
+                                }
+
+                                span {
+                                    margin-top: 6px;
+                                    color: rgb(3, 28, 26);
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+
+                .Ayield {
+                    width: 30%;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    border-radius: 10px;
+                    background-color: rgba(8, 84, 78, 0.4);
+
+                    b {
+                        color: #3e3d3d;
+
+                    }
+
+                    h3 {
+                        color: green;
+                        margin-top: 15px;
+                        font-weight: 500;
+                    }
+
+                    .yield-an {
+                        margin-top: 40px;
+                        padding: 7px 10px;
+                        border: none;
+                        background-color: blue;
+                        color: white;
+                        border-radius: 10px;
+                        height: max-content;
+                    }
+                }
+            }
+
+            .cont {
+                display: flex;
+                width: 90%;
+                margin: 20px auto;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .flxb-cont {
+                    width: 31%;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 20px;
+                    border-radius: 10px;
+                    background-color: rgba(8, 84, 78, 0.4);
+
+                    .flex {
+                        display: flex;
+                        width: 100%;
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        font-size: 14px;
+                        gap: 10px;
+
+                        div {
+                            display: flex;
+                            width: max-content;
+                            // margin: auto;
+                            gap: 5px;
+                            flex-direction: row;
+                            justify-content: space-between;
+                        }
+                    }
+                }
+
+                .apy {
+                    margin-top: 20px;
+                    display: flex;
+                    width: 100%;
+                    gap: 10px;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    div {
+                        span {
+                            font-size: 12px;
+                            color: #3e3d3d;
+
+                        }
+
+                        h2 {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .transfer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            gap: 10px;
+            margin: auto;
+
+            form {
+                width: 60%;
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(5, 53, 49, 0.4);
+
+                .item {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 15px;
+
+                    input {
+                        padding: 20px;
+                        border: none;
+                        border-radius: 10px;
+                        margin-top: 10px;
+                        background-color: rgba(2, 37, 35, 0.4);
+                        outline: none;
+
+                        &::placeholder {
+                            color: rgb(2, 30, 27);
+                            font-weight: 700;
+                        }
+
+                        &:focus {
+
+                            border: 1px solid #02252366;
+
+                        }
+                    }
+
+                }
+
+                .balance,
+                .item2 {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                    gap: 10px;
+                    // margin-top: 10px;
+                    // margin: auto;
+                }
+
+                .item2 {
+                    // padding: 20px;
+                    border: none;
+                    border-radius: 10px;
+                    margin-top: 10px;
+                    background-color: #02252366;
+                    align-items: center;
+
+                    input {
+                        margin: 0;
+                        background-color: initial;
+                        border-radius: 10px 0 0 10px;
+                        // outline: 1px solid #02252366;
+                        outline: none;
+
+                        &:focus {
+                            border: 1px solid #02252366;
+                            border-right: none;
+
+                        }
+                    }
+
+                    div {
+                        margin-right: 10px;
+
+                        button {
+                            border: none;
+                            border-radius: 10px;
+                            margin-top: 10px;
+                            background-color: #02252366;
+                            padding: 5px 10px;
+                            margin-right: 10px;
+                            font-weight: 700;
+
+                        }
+
+                        span {
+                            font-weight: 700;
+
+                        }
+                    }
+
+                }
+
+                .fee {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    border-radius: 10px;
+                    margin-top: 10px;
+                    background-color: #02252366;
+                    align-items: center;
+                    padding: 10px;
+                    border: 1px solid #02252366;
+                    margin-bottom: 15px;
+
+                    .network {
+                        border-bottom: 1px solid #02252366;
+                        padding-bottom: 4px;
+                    }
+
+                    div {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 100%;
+                        gap: 10px;
+                        font-weight: 500;
+                        margin-bottom: 5px;
+
+                    }
+                }
+
+                button {
+                    padding: 12px 7px;
+                    border: none;
+                    background-color: blue;
+                    color: white;
+                    border-radius: 10px;
+                    height: max-content;
+                    font-weight: 700;
+                    align-items: center;
+                    font-size: 16px;
+
+                }
+            }
+
+            .txComplete {
+                width: 33%;
+                display: grid;
+                // grid-template-columns: ;
+
+                .finalized {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    border-radius: 10px;
+                    // margin-top: 10px;
+                    background-color: #02252366;
+                    align-items: center;
+                    padding: 10px;
+                    border: 1px solid #02252366;
+                    margin-bottom: 15px;
+                }
+
+                .view {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 90%;
+                    gap: 10px;
+                    margin-top: 20px;
+
+                    button {
+                        padding: 7px;
+
+                        border-radius: 10px;
+                        height: max-content;
+                        font-weight: 700;
+                        align-items: center;
+                        // font-size: 16px;
+                    }
+
+                    .btnn1 {
+                        border: none;
+                        background-color: rgb(2, 37, 35);
+                        color: white;
+                    }
+
+                    .btnn2 {
+                        border: none;
+                        background-color: #022523b3;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+    }
+
+}

@@ -1,6 +1,4 @@
 'use client';
-
-
 // import { useAppKitAccount } from "@reown/appkit/react"
 import { ArrowLeftRightIcon, BoxIcon, Home, HomeIcon, HousePlug, LayoutDashboard, LinkIcon, MenuSquare, PiggyBank, PiggyBankIcon, Settings, Settings2 } from "lucide-react"
 import { usePathname } from "next/navigation"
@@ -24,9 +22,9 @@ const Sidebar = () => {
         <aside
             className="nav-sidebar"
         >
-            <div>
-                <span><BsBank2 /></span>
-                <h1 className="title">Stash</h1>
+            <div className="title" >
+                <span><BsBank2 size={22} style={{ marginTop: "6px" }} /></span>
+                <h1 >Stash</h1>
 
             </div>
             <ul>

@@ -152,15 +152,25 @@ header {
     flex-direction: column;
     width: 20%;
     background-color: #FFFFFF;
-    padding: 20px;
+    padding: 10px;
+    padding-right: 0;
 
     // z-index: 20;
     // position: absolute;
 
     .title {
-        font-weight: 600;
-        font-size: 2rem;
-        color: #0F172A;
+        width: max-content;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        h1 {
+            font-weight: 600;
+            font-size: 2rem;
+            color: #0F172A;
+        }
     }
 
     ul {
@@ -175,13 +185,15 @@ header {
 
         li {
             list-style: none;
-            width: 90%;
+            width: 100%;
             margin: 0 auto;
 
             .active {
                 background-color: rgba(8, 84, 78, 0.4);
                 border-right: 4px solid #08544e;
                 padding: 0 10px;
+                width: 100%;
+
                 // align-content: center;
             }
 

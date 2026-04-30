@@ -1,9 +1,14 @@
 "use client"
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldCheck, Timer, Lock, Clock } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, Timer, Lock } from 'lucide-react';
 
 const Fixed = () => {
     const [duration, setDuration] = useState(90);
+    const [amount, setAmount] = useState(0);
+
+    const handleSubmit = () => {
+        console.log(duration, amount)
+    }
 
     return (
         <section className="fixed-vault">
@@ -11,7 +16,7 @@ const Fixed = () => {
                 <div className="header-info">
                     <h2>Institutional Yield</h2>
                     <p>Lock your USDC to secure guaranteed premium returns. Funds are protected by institutional-grade smart contracts with multi-sig security.</p>
-                    
+
                     <div className="stats-row">
                         <div className="stat">
                             <span>MAXIMUM APY</span>
@@ -23,14 +28,14 @@ const Fixed = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="header-security">
                     <div className="security-badge">
                         <ShieldCheck size={18} className="icon-shield" />
                         <span>ON-CHAIN SECURE</span>
                     </div>
                     <p className="security-desc">The Fixed Savings Vault utilizes non-custodial smart contracts, audited by CertiK and OpenZeppelin.</p>
-                    
+
                     <div className="warning-box">
                         <AlertTriangle size={24} className="icon-alert" />
                         <p>No early withdrawals - enforced by smart contract. Ensure your liquidity needs are met before locking.</p>
@@ -39,16 +44,16 @@ const Fixed = () => {
             </div>
 
             <div className="panels-container">
-                <div className="lock-panel">
+                <form className="lock-panel">
                     <h3>Lock USDC</h3>
-                    
+
                     <div className="amount-input">
                         <label>Amount to Lock</label>
                         <div className="input-wrapper">
-                            <input type="number" placeholder="0.00" />
+                            <input type="number" placeholder="0.00" onChange={(e) => setAmount(Number(e.target.value))} />
                             <div className="input-suffix">
                                 <span>USDC</span>
-                                <button className="max-btn">MAX</button>
+                                {/* <button className="max-btn" type='button'>MAX</button> */}
                             </div>
                         </div>
                         <span className="wallet-bal">Wallet Balance: 12,450.00 USDC</span>
@@ -83,8 +88,8 @@ const Fixed = () => {
                         </div>
                     </div>
 
-                    <button className="lock-btn">Lock USDC</button>
-                </div>
+                    <button type="button" className="lock-btn" onClick={() => handleSubmit()}>Lock USDC</button>
+                </form>
 
                 <div className="positions-panel">
                     <div className="panel-header">

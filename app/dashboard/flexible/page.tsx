@@ -1,8 +1,29 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import { ChevronDown, TrendingUp, ArrowUpRight, ArrowDownLeft } from 'lucide-react'
 import '../../ui/styles/flexible.css'
 
 const Flexible = () => {
+    const [activeForm, setActiveForm] = useState<"deposit" | "withdraw">('deposit')
+    const [amount, setAmount] = useState(0)
+
+
+    const deposit = () => {
+        console.log("Depositing...", amount)
+    }
+
+    const withdraw = () => {
+        console.log("Withdrawing...")
+    }
+
+    const handleSubmit = () => {
+        if (activeForm == 'deposit') {
+            deposit()
+        } else {
+            withdraw()
+        }
+    }
+
     return (
         <section className='flexible-section'>
             {/* Header */}
@@ -34,14 +55,14 @@ const Flexible = () => {
 
             {/* Action Buttons */}
             <div className='action-buttons'>
-                <button className='btn-primary'>Deposit</button>
-                <button className='btn-secondary'>Withdraw</button>
+                <button onClick={() => setActiveForm('deposit')} className={activeForm == 'deposit' ? 'btn-primary' : 'btn-secondary'}>Deposit</button>
+                <button onClick={() => setActiveForm('withdraw')} className={activeForm == 'withdraw' ? 'btn-primary' : 'btn-secondary'}>Withdraw</button>
             </div>
 
             {/* Main Content */}
             <div className='flexible-content'>
                 {/* Left Section - Input and Balance */}
-                <div className='left-section'>
+                <form className='left-section'>
                     {/* Select Asset */}
                     <div className='select-asset-group'>
                         <label className='form-label'>Select Asset</label>
@@ -59,11 +80,12 @@ const Flexible = () => {
                         <label className='form-label'>Amount</label>
                         <div className='amount-input-group'>
                             <input
-                                type='text'
+                                type='number'
                                 className='amount-input'
                                 placeholder='0.00'
+                                onChange={(e) => setAmount(Number(e.target.value))}
                             />
-                            <button className='max-button'>Max</button>
+                            {/* <button className='max-button' type='button'>Max</button> */}
                         </div>
                         <div className='max-display'>
                             Wallet: <span>42,450.00</span>
@@ -84,20 +106,20 @@ const Flexible = () => {
                         </div>
                         <div className='stat-card'>
                             <span className='stat-label'>SHARE PRICE</span>
-                            <h3 className='stat-value'>1,084 sUJSDC</h3>
+                            <h3 className='stat-value'>1,084 USDC</h3>
                         </div>
                     </div>
 
                     {/* Confirm Deposit Button */}
-                    <button className='btn-confirm-deposit'>Confirm Deposit</button>
-                </div>
+                    <button className='btn-confirm-deposit' type='button' onClick={() => handleSubmit()}>Confirm Deposit</button>
+                </form>
 
                 {/* Right Section - Info Cards */}
                 <div className='right-section'>
                     <div className='info-card'>
                         <div className='info-row'>
                             <span className='info-label'>Vault token accrued</span>
-                            <span className='info-value'>+0.80 sUJSDC</span>
+                            <span className='info-value'>+0.80 USDC</span>
                         </div>
                         <div className='info-row'>
                             <span className='info-label'>APR + daily compounding</span>

@@ -111,7 +111,7 @@ const Flexible = () => {
                     </div>
 
                     {/* Confirm Deposit Button */}
-                    <button className='btn-confirm-deposit' type='button' disabled={amount <= 0} onClick={() => handleSubmit()}>Confirm Deposit</button>
+                    <button className='btn-confirm-deposit' type='button' disabled={amount <= 0} onClick={() => handleSubmit()}>Confirm {activeForm == 'deposit' ? 'Deposit' : 'Withdraw'}</button>
                 </form>
 
                 {/* Right Section - Info Cards */}

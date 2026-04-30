@@ -88,7 +88,7 @@ const Fixed = () => {
                         </div>
                     </div>
 
-                    <button type="button" className="lock-btn" onClick={() => handleSubmit()}>Lock USDC</button>
+                    <button type="button" disabled={amount <= 0} className="lock-btn" onClick={() => handleSubmit()}>Lock USDC</button>
                 </form>
 
                 <div className="positions-panel">

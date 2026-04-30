@@ -65,7 +65,7 @@ const Header = () => {
 
                     <button
                         className="btn btn-outline"
-                        onClick={toggleTheme}
+                    // onClick={toggleTheme}
                     // style={{ width: '40px', height: '40px', padding: 0, borderRadius: '50%' }}
                     >
                         {theme === 'light' ? <Sun size={18} /> : < Moon size={18} />}

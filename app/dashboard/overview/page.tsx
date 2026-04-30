@@ -1,10 +1,14 @@
+'use client';
+
 import { ArrowLeftRightIcon, ArrowUpRightSquareIcon, LockKeyhole, PlusIcon, TrendingUp } from 'lucide-react'
 import React from 'react'
 import { BsBank2 } from 'react-icons/bs'
 import { FaArrowRightArrowLeft } from 'react-icons/fa6'
 import { GiPadlock } from 'react-icons/gi'
-
+import { useRouter } from 'next/navigation'
 const Overview = () => {
+    const router = useRouter()
+
     return (
         // <div>Overview</div>
         <section className='overview'>
@@ -14,8 +18,13 @@ const Overview = () => {
                     <p>Welcome back. With stash, Your assets are fully secured.</p>
                 </div>
                 <div className='btn'>
-                    <button className='btn1'><span><PlusIcon size={14} /></span> Deposit</button>
-                    <button className='btn2'><span><FaArrowRightArrowLeft size={14} /></span>Transfer</button>
+                    <button className='btn1'
+                        onClick={() => { router.push('/dashboard/flexible') }
+                        }
+                    ><PlusIcon size={16} style={{ marginBottom: "-3px", marginRight: "6px" }} />Deposit</button>
+                    <button className='btn2'
+                        onClick={() => { router.push('/dashboard/transfer') }}
+                    ><span><FaArrowRightArrowLeft size={16} style={{ marginBottom: "-3px", marginRight: "6px" }} /></span>Transfer</button>
                 </div>
             </div>
 

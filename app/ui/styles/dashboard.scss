@@ -741,235 +741,230 @@
                 }
 
 
-                    .badge {
-                        background-color: rgba(2, 37, 35, 0.2);
-                        color: #022523;
-                        padding: 5px 10px;
-                        border-radius: 20px;
-                        font-size: 12px;
-                        font-weight: 600;
-                    }
+                .badge {
+                    background-color: rgba(2, 37, 35, 0.2);
+                    color: #022523;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 600;
                 }
+            }
 
-                .position-list {
+            .position-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .position-card {
+                    background-color: rgba(2, 37, 35, 0.1);
+                    border-radius: 8px;
+                    padding: 15px;
                     display: flex;
-                    flex-direction: column;
+                    align-items: center;
                     gap: 15px;
 
-                    .position-card {
-                        background-color: rgba(2, 37, 35, 0.1);
-                        border-radius: 8px;
-                        padding: 15px;
+                    .pos-icon {
+                        background-color: rgba(2, 37, 35, 0.2);
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
                         display: flex;
                         align-items: center;
-                        gap: 15px;
+                        justify-content: center;
+                        color: #022523;
 
-                        .pos-icon {
-                            background-color: rgba(2, 37, 35, 0.2);
-                            border-radius: 50%;
-                            width: 40px;
-                            height: 40px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: #022523;
+                        &.lock-icon {
+                            background-color: rgba(22, 163, 74, 0.2);
+                            color: #16A34A;
+                        }
+                    }
 
-                            &.lock-icon {
-                                background-color: rgba(22, 163, 74, 0.2);
-                                color: #16A34A;
+                    .pos-details {
+                        flex: 1;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .pos-amount {
+                            h4 {
+                                color: #022523;
+                                font-size: 14px;
+                                margin-bottom: 5px;
+                            }
+
+                            p {
+                                font-size: 12px;
+                                color: #3e3d3d;
+
+                                .apy-green {
+                                    color: #16A34A;
+                                    font-weight: 600;
+                                }
                             }
                         }
 
-                        .pos-details {
-                            flex: 1;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
+                        .pos-maturity {
+                            text-align: right;
 
-                            .pos-amount {
-                                h4 {
-                                    color: #022523;
-                                    font-size: 14px;
-                                    margin-bottom: 5px;
-                                }
+                            h4 {
+                                font-size: 14px;
+                                margin-bottom: 5px;
 
-                                p {
-                                    font-size: 12px;
-                                    color: #3e3d3d;
-
-                                    .apy-green {
-                                        color: #16A34A;
-                                        font-weight: 600;
-                                    }
+                                &.maturity-blue {
+                                    color: #2563EB;
                                 }
                             }
 
-                            .pos-maturity {
-                                text-align: right;
-
-                                h4 {
-                                    font-size: 14px;
-                                    margin-bottom: 5px;
-
-                                    &.maturity-blue {
-                                        color: #2563EB;
-                                    }
-                                }
-
-                                p {
-                                    font-size: 12px;
-                                    color: #3e3d3d;
-                                }
+                            p {
+                                font-size: 12px;
+                                color: #3e3d3d;
                             }
                         }
                     }
                 }
             }
         }
+    }
 
-        @media (max-width: 900px) {
-            width: 100%;
-            margin: 16px auto;
+    @media (max-width: 900px) {
+        width: 100%;
+        margin: 16px auto;
 
-            .header-card {
-                flex-direction: column;
-                gap: 20px;
-                padding: 18px;
-            }
-
-            .header-info,
-            .header-security {
-                width: 100%;
-            }
-
-            .stats-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .panels-container {
-                flex-direction: column;
-            }
-
-            .lock-panel,
-            .positions-panel {
-                width: 100%;
-            }
-
-            .amount-input {
-                .input-wrapper {
-                    flex-direction: column;
-                    align-items: stretch;
-                    gap: 12px;
-                }
-            }
-
-            .duration-select {
-                .duration-options {
-                    flex-wrap: wrap;
-                    gap: 10px;
-                }
-            }
-
-            .summary {
-                padding: 14px;
-            }
-
-            .position-card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .pos-details {
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .pos-maturity {
-                text-align: left;
-            }
-
-
-
-            .header-card {
-                flex-direction: column;
-                gap: 20px;
-                padding: 18px;
-            }
-
-            .header-info,
-            .header-security {
-                width: 100%;
-            }
-
-            .stats-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .panels-container {
-                flex-direction: column;
-            }
-
-            .lock-panel,
-            .positions-panel {
-                width: 100%;
-            }
-
-            .amount-input {
-                .input-wrapper {
-                    flex-direction: column;
-                    align-items: stretch;
-                    gap: 12px;
-                }
-            }
-
-            .duration-select {
-                .duration-options {
-                    flex-wrap: wrap;
-                    gap: 10px;
-                }
-            }
-
-            .summary {
-                padding: 14px;
-            }
-
-            .position-card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .pos-details {
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .pos-maturity {
-                text-align: left;
-            }
-
-        }
-
-
-        .s-about {
-            display: flex;
+        .header-card {
             flex-direction: column;
+            gap: 20px;
+            padding: 18px;
+        }
+
+        .header-info,
+        .header-security {
             width: 100%;
-            border-radius: 10px;
-            // margin-top: 10px;
-            background-color: #02252366;
-            align-self: center;
-            padding: 20px;
-            border: 1px solid #02252366;
-            margin-bottom: 15px;
+        }
+
+        .stats-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panels-container {
+            flex-direction: column;
+        }
+
+        .lock-panel,
+        .positions-panel {
+            width: 100%;
+        }
+
+        .amount-input {
+            .input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+        }
+
+        .duration-select {
+            .duration-options {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        .summary {
+            padding: 14px;
+        }
+
+        .position-card {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .pos-details {
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .pos-maturity {
+            text-align: left;
         }
 
 
+
+        .header-card {
+            flex-direction: column;
+            gap: 20px;
+            padding: 18px;
+        }
+
+        .header-info,
+        .header-security {
+            width: 100%;
+        }
+
+        .stats-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panels-container {
+            flex-direction: column;
+        }
+
+        .lock-panel,
+        .positions-panel {
+            width: 100%;
+        }
+
+        .amount-input {
+            .input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+        }
+
+        .duration-select {
+            .duration-options {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        .summary {
+            padding: 14px;
+        }
+
+        .position-card {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .pos-details {
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .pos-maturity {
+            text-align: left;
+        }
 
     }
-}
 
-}
+
+    .s-about {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 10px;
+        // margin-top: 10px;
+        background-color: #02252366;
+        align-self: center;
+        padding: 20px;
+        border: 1px solid #02252366;
+        margin-bottom: 15px;
+    }
+
+
 
 }

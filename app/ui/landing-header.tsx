@@ -23,7 +23,7 @@ export default function LandingHeader() {
         <header className={styles.navbar}>
             <Link href="/" className={styles.brand}>
                 <span className={styles.brandMark}>S</span>
-                <span>stash</span>
+                <span>Stash</span>
             </Link>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>

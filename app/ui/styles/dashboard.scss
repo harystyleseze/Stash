@@ -1154,7 +1154,6 @@
 }
 
 // kkkkkkkk
-// 1. Softer, varied shadows & borders
 .dashboard-container {
     .dashboard {
         .overview {
@@ -1178,12 +1177,10 @@
     }
 }
 
-// 2. Organic background texture (very subtle)
 .dashboard-container {
     background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.02) 0%, transparent 50%);
 }
 
-// 3. Hand‑crafted looking accents
 .btn1,
 .btn2,
 .lock-btn,
@@ -1198,7 +1195,6 @@
     }
 }
 
-// 4. Warmer neutral text (instead of var(--text-secondary) use var(--text-secondary))
 body,
 .overview-card-label,
 .stat span,
@@ -1206,7 +1202,6 @@ body,
     color: var(--text-secondary); // slightly warmer gray
 }
 
-// 5. Distinct number styling
 .totalBal h2,
 .apy h2,
 .stat h3 {

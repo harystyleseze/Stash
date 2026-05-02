@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TrendingUp, Wallet } from "lucide-react";
 import LandingTestimonials from "./ui/landing-testimonials";
+import LandingHeader from "./ui/landing-header";
 import styles from "./page.module.css";
 
 const features = [
@@ -60,21 +61,7 @@ export default function Home() {
         <main className={styles.landingPage}>
             <section className={styles.heroSection}>
                 <div className={styles.heroInner}>
-                    <header className={styles.navbar}>
-                        <Link href="/" className={styles.brand}>
-                            <span className={styles.brandMark}>S</span>
-                            <span>stash</span>
-                        </Link>
-
-                        <div className={styles.navActions}>
-                            <Link href="/dashboard/overview" className={styles.navLink}>
-                                Dashboard
-                            </Link>
-                            <Link href="/dashboard/flexible" className={styles.navButton}>
-                                Start saving
-                            </Link>
-                        </div>
-                    </header>
+                    <LandingHeader />
 
                     <div className={styles.heroShell}>
                         <div className={styles.heroBackdrop} aria-hidden="true" />

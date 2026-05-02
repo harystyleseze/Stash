@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ShieldCheck, TrendingUp, Wallet } from "lucide-react";
 import LandingTestimonials from "./ui/landing-testimonials";
 import LandingHeader from "./ui/landing-header";
+import LandingFooter from "./ui/landing-footer";
 import styles from "./page.module.css";
 
 const features = [
@@ -58,71 +59,73 @@ const testimonials = [
 
 export default function Home() {
     return (
-        <main className={styles.landingPage}>
-            <section className={styles.heroSection}>
-                <div className={styles.heroInner}>
-                    <LandingHeader />
+        <>
+            <main className={styles.landingPage}>
+                <section className={styles.heroSection}>
+                    <div className={styles.heroInner}>
+                        <LandingHeader />
 
-                    <div className={styles.heroShell}>
-                        <div className={styles.heroBackdrop} aria-hidden="true" />
+                        <div className={styles.heroShell}>
+                            <div className={styles.heroBackdrop} aria-hidden="true" />
 
-                        <div className={styles.heroCopy}>
-                            {/* <span className={styles.eyebrow}>Stablecoin neobank</span> */}
-                            <h1>Digital dollar banking that feels calm, clear, and beautifully simple.</h1>
-                            <p>
-                                Stash brings spending, transfers, and savings into one thoughtful workspace
-                                for people who want stablecoin money management to feel less technical and
-                                more natural.
-                            </p>
+                            <div className={styles.heroCopy}>
+                                <h1>Digital dollar banking that feels calm, clear, and beautifully simple.</h1>
+                                <p>
+                                    Stash brings spending, transfers, and savings into one thoughtful workspace
+                                    for people who want stablecoin money management to feel less technical and
+                                    more natural.
+                                </p>
 
-                            <div className={styles.heroActions}>
-                                <Link href="/dashboard/overview" className={styles.primaryButton}>
-                                    Open dashboard
-                                    <ArrowRight size={18} />
-                                </Link>
-                                <Link href="/dashboard/flexible" className={styles.secondaryButton}>
-                                    Explore savings
-                                </Link>
+                                <div className={styles.heroActions}>
+                                    <Link href="/dashboard/overview" className={styles.primaryButton}>
+                                        Open dashboard
+                                        <ArrowRight size={18} />
+                                    </Link>
+                                    <Link href="/dashboard/flexible" className={styles.secondaryButton}>
+                                        Explore savings
+                                    </Link>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className={styles.heroVisual}>
-                            <div className={styles.heroPhotoCard}>
-                                <Image
-                                    src="/happy customer.jpg"
-                                    alt="Happy customer using Stash"
-                                    width={920}
-                                    height={1080}
-                                    className={styles.heroImage}
-                                    priority
-                                />
+                            <div className={styles.heroVisual}>
+                                <div className={styles.heroPhotoCard}>
+                                    <Image
+                                        src="/happy customer.jpg"
+                                        alt="Happy customer using Stash"
+                                        width={920}
+                                        height={1080}
+                                        className={styles.heroImage}
+                                        priority
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <LandingTestimonials items={testimonials} />
+                <LandingTestimonials items={testimonials} />
 
-            <section className={styles.featureSection}>
-                <div className={styles.sectionHeading}>
-                    <span className={styles.sectionEyebrow}>Core value</span>
-                    <h2>Useful features, presented with a little more taste.</h2>
-                </div>
+                <section className={styles.featureSection}>
+                    <div className={styles.sectionHeading}>
+                        <span className={styles.sectionEyebrow}>Core value</span>
+                        <h2>Useful features, presented with a little more taste.</h2>
+                    </div>
 
-                <div className={styles.featureGrid}>
-                    {features.map(({ title, description, accent, icon: Icon }) => (
-                        <article key={title} className={styles.featureCard}>
-                            <span className={styles.featureAccent}>{accent}</span>
-                            <span className={styles.featureIcon}>
-                                <Icon size={20} />
-                            </span>
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-        </main>
+                    <div className={styles.featureGrid}>
+                        {features.map(({ title, description, accent, icon: Icon }) => (
+                            <article key={title} className={styles.featureCard}>
+                                <span className={styles.featureAccent}>{accent}</span>
+                                <span className={styles.featureIcon}>
+                                    <Icon size={20} />
+                                </span>
+                                <h3>{title}</h3>
+                                <p>{description}</p>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            </main>
+            <LandingFooter />
+        </>
     );
 }

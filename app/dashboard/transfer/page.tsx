@@ -1,11 +1,9 @@
 'use client'
 
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { ArrowRight, Send, Timer, VerifiedIcon } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { BiCheckCircle } from 'react-icons/bi'
-import { BsBank } from 'react-icons/bs'
 import { MdSend, MdVerified } from 'react-icons/md'
-import { TbSend2 } from 'react-icons/tb'
 
 type FormData = {
     recipient: string

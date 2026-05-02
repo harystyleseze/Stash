@@ -1,30 +1,33 @@
 'use client';
 // import { useAppKitAccount } from "@reown/appkit/react"
-import { ArrowLeftRightIcon, BoxIcon, Home, HomeIcon, HousePlug, LayoutDashboard, LinkIcon, MenuSquare, PiggyBank, PiggyBankIcon, Settings, Settings2 } from "lucide-react"
+import { BoxIcon, LayoutDashboard, MenuSquare, Settings2 } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { BsBank2 } from "react-icons/bs";
-import { TbTransferOut } from "react-icons/tb";
 import { MdSend } from "react-icons/md";
-export type SidebarProps = {
-    dashboardSidebar: boolean
-    // onNavigate: (view: string) => void
-    // onClick?: () => void          
-    style?: React.CSSProperties   // inline styles
 
-}
-const Sidebar = () => {
+type SidebarProps = {
+    isOpen: boolean;
+    onNavigate: () => void;
+};
+
+const Sidebar = ({ isOpen, onNavigate }: SidebarProps) => {
     const pathname = usePathname();
 
 
     return (<>
 
         <aside
-            className="nav-sidebar"
+            className={`nav-sidebar ${isOpen ? "open" : ""}`}
         >
             <div className="title" >
-                <span><BsBank2 size={22} style={{ marginTop: "6px" }} /></span>
-                <h1 >Stash</h1>
+                <span className="brand-pill">
+                    <span className="brand-core" />
+                    <span className="brand-spark" />
+                </span>
+                <div className="brand-text">
+                    <h1>Stash</h1>
+                    <p>Stablecoin banking</p>
+                </div>
 
             </div>
             <ul>
@@ -32,6 +35,7 @@ const Sidebar = () => {
                     <Link
                         href="/dashboard/overview"
                         className={`link ${pathname === '/dashboard/overview' ? 'active' : ''}`}
+                        onClick={onNavigate}
                     >
                         <div>
                             <span><LayoutDashboard /></span>
@@ -43,6 +47,7 @@ const Sidebar = () => {
                     <Link
                         href="/dashboard/flexible"
                         className={`link ${pathname === '/dashboard/flexible' ? 'active' : ''}`}
+                        onClick={onNavigate}
                     >
                         <div>
                             <span>< BoxIcon /></span>
@@ -55,6 +60,7 @@ const Sidebar = () => {
                     <Link
                         href="/dashboard/fixed"
                         className={`link ${pathname === '/dashboard/fixed' ? 'active' : ''}`}
+                        onClick={onNavigate}
                     >
                         <div>
                             <span><MenuSquare /></span>
@@ -66,6 +72,7 @@ const Sidebar = () => {
                     <Link
                         href="/dashboard/transfer"
                         className={`link ${pathname === '/dashboard/transfer' ? 'active' : ''}`}
+                        onClick={onNavigate}
                     >
                         <div>
                             <span><MdSend /></span>
@@ -77,6 +84,7 @@ const Sidebar = () => {
                     <Link
                         href="/dashboard/settings"
                         className={`link ${pathname === '/settings' ? 'active' : ''}`}
+                        onClick={onNavigate}
                     >
                         <div>
                             <span><Settings2 /></span>

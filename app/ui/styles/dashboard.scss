@@ -18,11 +18,16 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    background-color: #F8FAFC;
+    position: relative;
 
     .dashboard {
-        width: 85%;
+        width: calc(100% - 280px);
+        flex: 1;
+        min-width: 0;
         display: flex;
         flex-direction: column;
+        background-color: #F8FAFC;
 
         header {
             width: 100% !important;
@@ -78,18 +83,31 @@
                         width: 45%;
 
                         span {
-
                             padding: 0;
-                            background-color: none;
+                            background-color: transparent;
                             color: blue;
-
                         }
                     }
-
-
                 }
-            }
 
+                .overview-copy {
+    max-width: 38rem;
+}
+
+.overview-card-tag {
+    color: #052321;
+    border-radius: 20px;
+    padding: 0 8px;
+    background-color: rgba(8, 84, 78, 0.3);
+    white-space: nowrap;
+}
+
+.overview-card-label {
+    color: #3e3d3d;
+    font-size: 0.88rem;
+}
+
+            }
             .net {
                 width: 90%;
                 margin: auto;
@@ -827,144 +845,213 @@
         }
     }
 
-    @media (max-width: 900px) {
-        width: 100%;
-        margin: 16px auto;
-
-        .header-card {
-            flex-direction: column;
-            gap: 20px;
-            padding: 18px;
-        }
-
-        .header-info,
-        .header-security {
-            width: 100%;
-        }
-
-        .stats-row {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .panels-container {
-            flex-direction: column;
-        }
-
-        .lock-panel,
-        .positions-panel {
-            width: 100%;
-        }
-
-        .amount-input {
-            .input-wrapper {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-        }
-
-        .duration-select {
-            .duration-options {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-        }
-
-        .summary {
-            padding: 14px;
-        }
-
-        .position-card {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .pos-details {
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .pos-maturity {
-            text-align: left;
-        }
-
-
-
-        .header-card {
-            flex-direction: column;
-            gap: 20px;
-            padding: 18px;
-        }
-
-        .header-info,
-        .header-security {
-            width: 100%;
-        }
-
-        .stats-row {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .panels-container {
-            flex-direction: column;
-        }
-
-        .lock-panel,
-        .positions-panel {
-            width: 100%;
-        }
-
-        .amount-input {
-            .input-wrapper {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-        }
-
-        .duration-select {
-            .duration-options {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-        }
-
-        .summary {
-            padding: 14px;
-        }
-
-        .position-card {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .pos-details {
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .pos-maturity {
-            text-align: left;
-        }
-
-    }
-
-
     .s-about {
         display: flex;
         flex-direction: column;
         width: 100%;
         border-radius: 10px;
-        // margin-top: 10px;
         background-color: #02252366;
         align-self: center;
         padding: 20px;
         border: 1px solid #02252366;
         margin-bottom: 15px;
     }
+}
 
+// Tablet and Medium Screens (Max 1024px)
+@media (max-width: 1024px) {
+    .dashboard-container {
+        .dashboard {
+            width: 100%; // Sidebar acts as an overlay
+            transition: width 0.3s ease;
 
+            .overview {
+                .intro {
+                    width: 95%;
+                    .btn {
+                        width: 45%;
+                        .btn1, .btn2 {
+                            padding: 10px;
+                            flex: 1;
+                        }
+                    }
+                }
+                .net {
+                    width: 95%;
+                    gap: 20px;
+                    .balCont {
+                        width: 60%;
+                    }
+                    .Ayield {
+                        width: 36%;
+                    }
+                }
+                .cont {
+                    width: 95%;
+                    flex-wrap: wrap; // Allows boxes to wrap on tablet
+                    justify-content: space-between;
+                    .flxb-cont {
+                        width: calc(50% - 10px); // Two columns
+                        margin-bottom: 15px;
+                    }
+                }
+            }
 
+            .transfer {
+                width: 95%;
+                gap: 20px;
+                form {
+                    width: 60%;
+                }
+                .txComplete {
+                    width: 38%;
+                }
+            }
+
+            // Target fixed-vault no matter if nested directly or as child
+            .fixed-vault {
+                width: 95%;
+                .header-card {
+                    .header-info { width: 55%; }
+                    .header-security { width: 42%; }
+                }
+                .panels-container {
+                    gap: 20px;
+                    .lock-panel, .positions-panel {
+                        width: 48%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile and Small Screens (Max 768px)
+@media (max-width: 768px) {
+    .dashboard-container {
+        .dashboard {
+            .overview {
+                .intro {
+                    flex-direction: column;
+                    gap: 20px;
+                    width: 90%;
+                    .overview-copy {
+                        max-width: 100%;
+                    }
+                    .btn {
+                        width: 100%;
+                        margin-top: 15px;
+                        justify-content: space-between;
+                        gap: 15px;
+                        .btn1, .btn2 {
+                            width: 48%;
+                            text-align: center;
+                        }
+                    }
+                }
+                .net {
+                    flex-direction: column;
+                    width: 90%;
+                    gap: 25px;
+                    .balCont, .Ayield {
+                        width: 100%;
+                    }
+                    .balCont {
+                        .balL {
+                            flex-direction: column;
+                            gap: 15px;
+                            .bal .totalBal {
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 8px;
+                            }
+                        }
+                    }
+                }
+                .cont {
+                    flex-direction: column;
+                    width: 90%;
+                    gap: 20px;
+                    .flxb-cont {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .transfer {
+                flex-direction: column;
+                width: 90%;
+                gap: 30px;
+                form, .txComplete {
+                    width: 100%;
+                }
+                form {
+                    .balance, .item2, .fee .network, .fee div {
+                        flex-direction: column;
+                        align-items: stretch;
+                        gap: 12px;
+                    }
+                    .item2 {
+                        input { 
+                            width: 100%; 
+                            border-radius: 10px; 
+                            padding-right: 15px;
+                        }
+                        div { 
+                            width: 100%; 
+                            margin-top: 15px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+            .fixed-vault {
+                width: 90%;
+                .header-card {
+                    flex-direction: column;
+                    gap: 25px;
+                    .header-info, .header-security {
+                        width: 100%;
+                    }
+                    .header-info .stats-row {
+                        flex-direction: column;
+                        gap: 20px;
+                    }
+                }
+                .panels-container {
+                    flex-direction: column;
+                    gap: 25px;
+                    .lock-panel, .positions-panel {
+                        width: 100%;
+                    }
+                    .lock-panel {
+                        .duration-select .duration-options {
+                            flex-wrap: wrap;
+                            gap: 12px;
+                            .duration-card {
+                                flex: 1 1 calc(50% - 10px);
+                            }
+                        }
+                    }
+                }
+                .position-list .position-card {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 18px;
+                    .pos-details {
+                        width: 100%;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 15px;
+                        .pos-maturity {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

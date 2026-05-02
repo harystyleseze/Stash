@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, TrendingUp, Wallet } from "lucide-react";
+import LandingTestimonials from "./ui/landing-testimonials";
 import styles from "./page.module.css";
 
 const features = [
@@ -24,6 +25,33 @@ const features = [
             "Move stablecoins confidently with a simpler flow, cleaner numbers, and less noise around each action.",
         accent: "Confident movement",
         icon: ShieldCheck,
+    },
+];
+
+const testimonials = [
+    {
+        quote:
+            "Stash is the first stablecoin app I have used that feels calm enough for daily money movement. I do not need to think twice before opening it.",
+        name: "Amara Yusuf",
+        role: "Operations lead",
+        stat: "Treasury transfers every week",
+        image: "/happy customer.jpg",
+    },
+    {
+        quote:
+            "The savings flow feels simple, not intimidating. I can see what is available, what is earning, and move between both without the usual confusion.",
+        name: "Daniel Cole",
+        role: "Founder",
+        stat: "Uses flexible vaults daily",
+        image: "/customer.jpg",
+    },
+    {
+        quote:
+            "What kept me around was the clarity. It feels more like a polished neobank than a crypto dashboard stitched together from too many ideas.",
+        name: "Teni Adebayo",
+        role: "Finance manager",
+        stat: "Runs team payouts in USDC",
+        image: "/happy customer.jpg",
     },
 ];
 
@@ -86,6 +114,8 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            <LandingTestimonials items={testimonials} />
 
             <section className={styles.featureSection}>
                 <div className={styles.sectionHeading}>

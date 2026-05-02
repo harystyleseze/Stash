@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import styles from "../page.module.css";
 
 export default function LandingHeader() {
     const [isOpen, setIsOpen] = useState(false);
+    const { resolvedTheme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const toggleTheme = () => {
+        setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
+    };
 
     return (
         <header className={styles.navbar}>
@@ -15,21 +26,32 @@ export default function LandingHeader() {
                 <span>stash</span>
             </Link>
 
-            <button
-                className={styles.mobileMenuToggle}
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle menu"
-            >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                <div className={`${styles.navActions} ${isOpen ? styles.navActionsOpen : ''}`}>
+                    <Link href="/dashboard/overview" className={styles.navLink} onClick={() => setIsOpen(false)}>
+                        Dashboard
+                    </Link>
+                    <Link href="/dashboard/flexible" className={styles.navButton} onClick={() => setIsOpen(false)}>
+                        Start saving
+                    </Link>
+                </div>
 
-            <div className={`${styles.navActions} ${isOpen ? styles.navActionsOpen : ''}`}>
-                <Link href="/dashboard/overview" className={styles.navLink} onClick={() => setIsOpen(false)}>
-                    Dashboard
-                </Link>
-                <Link href="/dashboard/flexible" className={styles.navButton} onClick={() => setIsOpen(false)}>
-                    Start saving
-                </Link>
+                <button
+                    type="button"
+                    onClick={toggleTheme}
+                    style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--text-main)', display: 'flex', alignItems: 'center', zIndex: 100 }}
+                    aria-label="Toggle dark mode"
+                >
+                    {mounted ? (resolvedTheme === 'light' ? <Sun size={20} /> : <Moon size={20} />) : <Sun size={20} />}
+                </button>
+
+                <button
+                    className={styles.mobileMenuToggle}
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
             </div>
 
             {isOpen && (

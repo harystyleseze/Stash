@@ -1,5 +1,5 @@
 /* Light theme colors */
-/* Background: #F8FAFC, Card: #FFFFFF, Primary: #2563EB, Success: #16A34A */
+/* Background: var(--bg-primary), Card: var(--bg-surface), Primary: var(--accent-blue), Success: var(--success) */
 
 .flexible-section {
     width: 100%;
@@ -8,8 +8,8 @@
     display: flex;
     flex-direction: column;
     padding: 24px;
-    background-color: #F8FAFC;
-    color: #0F172A;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 /* Header */
@@ -29,13 +29,13 @@
 .header-title {
     font-size: 28px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-primary);
     margin: 0 0 8px 0;
 }
 
 .header-subtitle {
     font-size: 14px;
-    color: #475569;
+    color: var(--text-secondary);
     margin: 0;
     max-width: 400px;
 }
@@ -49,7 +49,7 @@
 
 .apy-label {
     font-size: 12px;
-    color: #475569;
+    color: var(--text-secondary);
     font-weight: 600;
     letter-spacing: 0.5px;
 }
@@ -63,11 +63,11 @@
 .apy-percentage {
     font-size: 28px;
     font-weight: 700;
-    color: #16A34A;
+    color: var(--success);
 }
 
 .apy-arrow {
-    color: #16A34A;
+    color: var(--success);
 }
 
 /* Action Buttons */
@@ -82,8 +82,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     padding: 18px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 16px;
     margin-bottom: 24px;
 }
@@ -97,19 +97,19 @@
 .summary-label {
     font-size: 12px;
     font-weight: 600;
-    color: #475569;
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
 }
 
 .summary-value {
     font-size: 24px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .summary-value.positive {
-    color: #16A34A;
+    color: var(--success);
 }
 
 .btn-primary,
@@ -125,22 +125,22 @@
 }
 
 .btn-primary {
-    background-color: #2563EB;
-    color: #FFFFFF;
+    background-color: var(--accent-blue);
+    color: var(--bg-surface);
 }
 
 .btn-primary:hover {
-    background-color: #1d4ed8;
+    background-color: color-mix(in srgb, var(--accent-blue) 80%, black);
 }
 
 .btn-secondary {
-    background-color: #FFFFFF;
-    color: #2563EB;
-    border: 1px solid #2563EB;
+    background-color: var(--bg-surface);
+    color: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
 }
 
 .btn-secondary:hover {
-    background-color: #DBEAFE;
+    background-color: color-mix(in srgb, var(--accent-blue) 20%, transparent);
 }
 
 /* Main Content Layout */
@@ -175,7 +175,7 @@
 .form-label {
     font-size: 13px;
     font-weight: 600;
-    color: #475569;
+    color: var(--text-secondary);
     text-transform: capitalize;
 }
 
@@ -184,15 +184,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .select-dropdown:hover {
-    border-color: #2563EB;
+    border-color: var(--accent-blue);
 }
 
 .asset-selected {
@@ -200,7 +200,7 @@
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: #0F172A;
+    color: var(--text-primary);
 }
 
 .asset-icon {
@@ -217,47 +217,47 @@
 .amount-input {
     flex: 1;
     padding: 12px 16px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 16px;
-    color: #0F172A;
+    color: var(--text-primary);
     transition: border-color 0.3s ease;
 }
 
 .amount-input:focus {
     outline: none;
-    border-color: #2563EB;
+    border-color: var(--accent-blue);
 }
 
 .amount-input::placeholder {
-    color: #94A3B8;
+    color: var(--text-secondary);
 }
 
 .max-button {
     padding: 10px 12px;
-    background-color: #F1F5F9;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
     border-radius: 6px;
     font-size: 12px;
     font-weight: 600;
-    color: #2563EB;
+    color: var(--accent-blue);
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .max-button:hover {
-    background-color: #DBEAFE;
+    background-color: color-mix(in srgb, var(--accent-blue) 20%, transparent);
 }
 
 .max-display {
     font-size: 12px;
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 .max-display span {
-    color: #16A34A;
+    color: var(--success);
     font-weight: 600;
 }
 
@@ -266,8 +266,8 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     gap: 8px;
 }
@@ -275,14 +275,14 @@
 .balance-label {
     font-size: 12px;
     font-weight: 600;
-    color: #475569;
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
 }
 
 .balance-amount {
     font-size: 24px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-primary);
 }
 
 /* Stats Grid */
@@ -296,8 +296,8 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     gap: 8px;
 }
@@ -305,21 +305,21 @@
 .stat-label {
     font-size: 12px;
     font-weight: 600;
-    color: #475569;
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
 }
 
 .stat-value {
     font-size: 20px;
     font-weight: 700;
-    color: #16A34A;
+    color: var(--success);
     margin: 0;
 }
 
 /* Confirm Deposit Button */
 .btn-confirm-deposit {
-    background-color: #06B6D4;
-    color: #FFFFFF;
+    background-color: var(--accent-cyan);
+    color: var(--bg-surface);
     padding: 12px 24px;
     font-size: 16px;
     margin-top: 8px;
@@ -327,7 +327,7 @@
 }
 
 .btn-confirm-deposit:hover {
-    background-color: #0891b2;
+    background-color: color-mix(in srgb, var(--accent-cyan) 80%, black);
 }
 
 /* Info Cards */
@@ -335,8 +335,8 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     gap: 12px;
 }
@@ -349,13 +349,13 @@
 
 .info-label {
     font-size: 12px;
-    color: #475569;
+    color: var(--text-secondary);
     font-weight: 500;
 }
 
 .info-value {
     font-size: 13px;
-    color: #0F172A;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -370,8 +370,8 @@
     flex-direction: column;
     gap: 16px;
     padding: 24px;
-    background-color: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
     border-radius: 12px;
 }
 
@@ -385,20 +385,20 @@
 .transactions-header h2 {
     font-size: 18px;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .export-link {
     font-size: 12px;
-    color: #2563EB;
+    color: var(--accent-blue);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .export-link:hover {
-    color: #1d4ed8;
+    color: color-mix(in srgb, var(--accent-blue) 80%, black);
 }
 
 /* Transactions Table */
@@ -412,7 +412,7 @@ table {
 }
 
 thead {
-    background-color: #F8FAFC;
+    background-color: var(--bg-primary);
 }
 
 th {
@@ -420,20 +420,20 @@ th {
     text-align: left;
     font-size: 12px;
     font-weight: 700;
-    color: #475569;
+    color: var(--text-secondary);
     letter-spacing: 0.5px;
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid var(--border);
 }
 
 td {
     padding: 12px;
     font-size: 13px;
-    color: #0F172A;
-    border-bottom: 1px solid #E2E8F0;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
 }
 
 tbody tr:hover {
-    background-color: #F8FAFC;
+    background-color: var(--bg-primary);
 }
 
 /* Mobile responsive adjustments */
@@ -538,8 +538,8 @@ tbody tr:hover {
         gap: 10px;
         padding: 16px;
         margin-bottom: 12px;
-        background-color: #FFFFFF;
-        border: 1px solid #E2E8F0;
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border);
         border-radius: 16px;
     }
 
@@ -580,22 +580,22 @@ tbody tr:hover {
 }
 
 .tx-type.deposit {
-    background-color: rgba(22, 163, 74, 0.1);
-    color: #16A34A;
+    background-color: color-mix(in srgb, var(--success) 10%, transparent);
+    color: var(--success);
 }
 
 .tx-type.withdraw {
-    background-color: rgba(220, 38, 38, 0.1);
-    color: #DC2626;
+    background-color: color-mix(in srgb, var(--error) 10%, transparent);
+    color: var(--error);
 }
 
 .tx-value {
     font-weight: 600;
-    color: #475569;
+    color: var(--text-secondary);
 }
 
 .tx-value.positive {
-    color: #16A34A;
+    color: var(--success);
 }
 
 /* Responsive Design */

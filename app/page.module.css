@@ -1,20 +1,20 @@
 .landingPage {
-  --background: #f8fafc;
-  --surface: #ffffff;
+  --background: var(--bg-primary);
+  --surface: var(--bg-surface);
   --surface-soft: #edf4fb;
-  --surface-deep: #0f172a;
-  --primary: #2563eb;
+  --surface-deep: var(--text-primary);
+  --primary: var(--accent-blue);
   --primary-soft: #dbeafe;
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-soft: #94a3b8;
-  --border: #e2e8f0;
-  --success: #16a34a;
+  --text-main: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --text-soft: var(--text-secondary);
+  --border: var(--border);
+  --success: var(--success);
   min-height: 100vh;
   width: 100%;
   background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 28%),
-    linear-gradient(180deg, #f8fbff 0%, #f2f7fc 55%, #f8fafc 100%);
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent-blue) 12%, transparent), transparent 28%),
+    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 55%, var(--bg-primary) 100%);
   color: var(--text-main);
   overflow-x: hidden;
 }
@@ -65,8 +65,8 @@
   width: 2.7rem;
   height: 2.7rem;
   border-radius: 1rem;
-  background: linear-gradient(145deg, #2563eb, #0f4fd6);
-  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
+  background: linear-gradient(145deg, var(--accent-blue), #0f4fd6);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--accent-blue) 24%, transparent);
   overflow: hidden;
 }
 
@@ -79,7 +79,7 @@
 
 .brandMark::before {
   inset: 0.68rem;
-  background: rgba(255, 255, 255, 0.96);
+  background: color-mix(in srgb, var(--bg-surface) 96%, transparent);
 }
 
 .brandMark::after {
@@ -123,15 +123,15 @@
 .navButton,
 .primaryButton {
   padding: 0.95rem 1.25rem;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  box-shadow: 0 14px 26px rgba(37, 99, 235, 0.18);
+  background: linear-gradient(135deg, var(--accent-blue), color-mix(in srgb, var(--accent-blue) 80%, black));
+  color: var(--bg-surface);
+  box-shadow: 0 14px 26px color-mix(in srgb, var(--accent-blue) 18%, transparent);
 }
 
 .secondaryButton {
   padding: 0.95rem 1.25rem;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  border: 1px solid var(--border);
   color: var(--text-main);
   backdrop-filter: blur(12px);
 }
@@ -217,8 +217,8 @@
 }
 
 .featureCard {
-  border: 1px solid rgba(226, 232, 240, 0.92);
-  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
   box-shadow: 0 20px 42px rgba(15, 23, 42, 0.06);
   backdrop-filter: blur(14px);
 }
@@ -233,8 +233,8 @@
   width: min(100%, 32rem);
   padding: 1rem;
   border-radius: 2.35rem;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  border: 1px solid var(--border);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(16px);
 }
@@ -273,10 +273,10 @@
   position: relative;
   padding: 2rem;
   border-radius: 2rem;
-  border: 1px solid rgba(226, 232, 240, 0.92);
+  border: 1px solid var(--border);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(237, 244, 251, 0.88)),
-    #ffffff;
+    linear-gradient(145deg, color-mix(in srgb, var(--bg-surface) 92%, transparent), rgba(237, 244, 251, 0.88)),
+    var(--bg-surface);
   box-shadow: 0 20px 42px rgba(15, 23, 42, 0.06);
   overflow: hidden;
 }
@@ -350,7 +350,7 @@
 .testimonialStat {
   padding: 0.7rem 0.9rem;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
+  background: color-mix(in srgb, var(--accent-blue) 8%, transparent);
   color: var(--primary);
   font-size: 0.88rem;
   font-weight: 700;
@@ -376,8 +376,8 @@
   width: 3rem;
   height: 3rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: color-mix(in srgb, var(--bg-surface) 92%, transparent);
+  border: 1px solid var(--border);
   color: var(--text-main);
   box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
   transform: translateY(-50%);

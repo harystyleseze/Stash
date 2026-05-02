@@ -145,12 +145,11 @@ const P2P = () => {
                     </div>
                 </div>
             </section>
-
+            {/* 
             <div>
                 <h3>Recent recipients</h3>
                 <div>
                     <div>
-                        {/* <Image /> */}
                         <div>
                             <p>halima@gmail.com</p>
                             <span>0x23312..re8</span>
@@ -159,7 +158,7 @@ const P2P = () => {
 
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

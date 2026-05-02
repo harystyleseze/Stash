@@ -1,6 +1,6 @@
 'use client';
 // import { useAppKitAccount } from "@reown/appkit/react"
-import { BoxIcon, LayoutDashboard, MenuSquare, Settings2 } from "lucide-react"
+import { BoxIcon, LayoutDashboard, MenuSquare, Settings2, X } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { MdSend } from "react-icons/md";
@@ -19,16 +19,25 @@ const Sidebar = ({ isOpen, onNavigate }: SidebarProps) => {
         <aside
             className={`nav-sidebar ${isOpen ? "open" : ""}`}
         >
-            <div className="title" >
-                <span className="brand-pill">
-                    <span className="brand-core" />
-                    <span className="brand-spark" />
-                </span>
-                <div className="brand-text">
-                    <h1>Stash</h1>
-                    <p>Stablecoin banking</p>
+            <div className="title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span className="brand-pill">
+                        <span className="brand-core" />
+                        <span className="brand-spark" />
+                    </span>
+                    <div className="brand-text">
+                        <h1>Stash</h1>
+                        <p>Stablecoin banking</p>
+                    </div>
                 </div>
-
+                
+                <button
+                    className="mobile-close-btn"
+                    onClick={onNavigate}
+                    aria-label="Close sidebar"
+                >
+                    <X size={24} />
+                </button>
             </div>
             <ul>
                 <li>

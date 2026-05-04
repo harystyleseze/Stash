@@ -33,12 +33,10 @@ contract FixedVault is ReentrancyGuard {
     event PositionOpened(address indexed owner, uint256 indexed positionId, uint256 amount, uint64 unlockAt);
     event PositionClosed(address indexed owner, uint256 indexed positionId, uint256 amount);
 
-
     constructor(IERC20 asset_) {
         asset = asset_;
     }
 
-    
     function deposit(uint256 amount, uint256 lockSeconds) external nonReentrant returns (uint256 positionId) {
         if (amount == 0) revert ZeroAmount();
         if (amount > type(uint128).max) revert AmountTooLarge(amount);
@@ -46,11 +44,10 @@ contract FixedVault is ReentrancyGuard {
             revert InvalidLockDuration(lockSeconds);
         }
 
-        
         uint64 unlockAt = uint64(block.timestamp + lockSeconds);
 
         positionId = _positions[msg.sender].length;
-        
+
         _positions[msg.sender].push(Position({amount: uint128(amount), unlockAt: unlockAt, withdrawn: false}));
 
         asset.safeTransferFrom(msg.sender, address(this), amount);
@@ -73,7 +70,6 @@ contract FixedVault is ReentrancyGuard {
 
         emit PositionClosed(msg.sender, positionId, amount);
     }
-
 
     function getPositions(address owner_) external view returns (Position[] memory) {
         return _positions[owner_];

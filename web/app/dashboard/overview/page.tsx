@@ -12,6 +12,7 @@ import { formatUsdc, formatUnlockDate, shortenAddress, approximateDateFromBlock 
 import { BASESCAN_TX_BASE } from '@/lib/constants';
 import type { HistoryEvent } from '@/types';
 import { NgnStat } from '@/components/shared/ngn-stat';
+import { AllocationChart } from '@/components/shared/allocation-chart';
 
 const Overview = () => {
     const router = useRouter();
@@ -104,7 +105,16 @@ const Overview = () => {
                             <TrendingUp size={14} /> Live on Base
                         </span>
                     </div>
-                    <div className="chart"></div>
+                    <div className="chart">
+                        <AllocationChart
+                            segments={[
+                                { key: 'wallet', label: 'Wallet', value: walletUsdc, color: 'var(--accent-blue)' },
+                                { key: 'flexible', label: 'Flexible vault', value: depositedUsdc ?? 0n, color: 'var(--success)' },
+                                { key: 'fixed', label: 'Fixed vault', value: totalLocked, color: 'var(--accent-cyan)' },
+                            ]}
+                            totalLabel="Total net worth"
+                        />
+                    </div>
                 </div>
                 <div className='Ayield'>
                     <b>Naira-denominated balance</b>

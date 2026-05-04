@@ -9,10 +9,10 @@ export const BASE_SEPOLIA_CHAIN_ID = 84532;
 export const BASE_SEPOLIA_CHAIN_ID_HEX = '0x14a34';
 
 // CORS-friendly Base Sepolia RPCs. https://sepolia.base.org is the official
-// endpoint but its CORS headers and rate-limit can flake from the browser.
-// We try the configured endpoint first, then fall back through this list.
+// endpoint but its CORS headers and getLogs limits can flake from the browser.
+// publicnode supports eth_getLogs reliably for our chunk size; Blast was
+// retired (returns "Blast API is no longer available") so it's removed.
 export const FALLBACK_RPC_URLS = [
-  'https://base-sepolia.public.blastapi.io',
   'https://base-sepolia-rpc.publicnode.com',
   'https://sepolia.base.org',
 ];

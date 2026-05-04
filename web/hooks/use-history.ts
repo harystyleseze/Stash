@@ -61,7 +61,9 @@ export function useHistory() {
     setIsLoading(true);
     setError(null);
     try {
-      const reader = walletProvider ?? getReadProvider();
+      // Always go through our configured public RPC for eth_getLogs — the
+      // wallet's RPC sometimes returns 502 for log queries on Base Sepolia.
+      const reader = getReadProvider();
       const toBlock = BigInt(await reader.getBlockNumber());
       const flexible = getFlexibleVaultContract(reader);
       const fixed = getFixedVaultContract(reader);

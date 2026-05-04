@@ -1,0 +1,670 @@
+.landingPage {
+  --background: var(--bg-primary);
+  --surface: var(--bg-surface);
+  --surface-soft: #edf4fb;
+  --surface-deep: var(--text-primary);
+  --primary: var(--accent-blue);
+  --primary-soft: #dbeafe;
+  --text-main: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --text-soft: var(--text-secondary);
+  --border: var(--border);
+  --success: var(--success);
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent-blue) 12%, transparent), transparent 28%),
+    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 55%, var(--bg-primary) 100%);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+.testimonialSection,
+.featureSection {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.heroSection {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1.5rem 0 4.5rem;
+}
+
+.heroInner {
+  width: min(1120px, calc(100% - 2rem));
+  min-height: calc(100vh - 6rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--text-main);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 1rem;
+  background: linear-gradient(145deg, var(--accent-blue), #0f4fd6);
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--accent-blue) 24%, transparent);
+  overflow: hidden;
+}
+
+.brandMark::before,
+.brandMark::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+}
+
+.brandMark::before {
+  inset: 0.68rem;
+  background: color-mix(in srgb, var(--bg-surface) 96%, transparent);
+}
+
+.brandMark::after {
+  width: 0.7rem;
+  height: 0.7rem;
+  top: 0.42rem;
+  right: 0.42rem;
+  background: #93c5fd;
+  box-shadow: 0 0 0 0.18rem rgba(255, 255, 255, 0.16);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.mobileMenuToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.mobileOverlay {
+  display: none;
+}
+
+.navLink,
+.navButton,
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.navLink {
+  padding: 0.82rem 1rem;
+  color: var(--text-muted);
+}
+
+.navButton,
+.primaryButton {
+  padding: 0.95rem 1.25rem;
+  background: linear-gradient(135deg, var(--accent-blue), color-mix(in srgb, var(--accent-blue) 80%, black));
+  color: var(--bg-surface);
+  box-shadow: 0 14px 26px color-mix(in srgb, var(--accent-blue) 18%, transparent);
+}
+
+.secondaryButton {
+  padding: 0.95rem 1.25rem;
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  backdrop-filter: blur(12px);
+}
+
+.navLink:hover,
+.navButton:hover,
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-2px);
+}
+
+.heroShell {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.98fr);
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2rem 0 0;
+}
+
+.heroBackdrop {
+  position: absolute;
+  top: 48%;
+  right: 1rem;
+  width: min(39rem, 48vw);
+  height: 32rem;
+  border-radius: 1rem;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.46), rgba(15, 23, 42, 0.5)),
+    url("/customer.jpg") center/cover no-repeat;
+  background-blend-mode: overlay;
+  filter: blur(18px);
+  opacity: 0.7;
+  transform: translateY(-50%) scale(1.14);
+  pointer-events: none;
+}
+
+.heroCopy,
+.heroVisual {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow,
+.sectionEyebrow {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(219, 234, 254, 0.92);
+  color: var(--primary);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.eyebrow {
+  padding: 0.5rem 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.heroCopy h1 {
+  max-width: 11ch;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.07em;
+  margin-bottom: 1.15rem;
+}
+
+.heroCopy p {
+  max-width: 34rem;
+  font-size: 1.03rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 20px;
+}
+
+.featureCard {
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.heroVisual {
+  display: grid;
+  justify-items: end;
+}
+
+.heroPhotoCard {
+  position: relative;
+  width: min(100%, 32rem);
+  padding: 1rem;
+  border-radius: 2.35rem;
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.heroImage {
+  display: block;
+  width: 100%;
+  height: 34rem;
+  object-fit: cover;
+  border-radius: 1.7rem;
+}
+
+.testimonialSection {
+  padding: 0 0 4rem;
+}
+
+.testimonialIntro {
+  max-width: 40rem;
+  margin-bottom: 1.6rem;
+}
+
+.testimonialIntro h2 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.testimonialShell {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 4.5rem 3.5rem;
+}
+
+.testimonialCard {
+  position: relative;
+  padding: 2rem;
+  border-radius: 2rem;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--bg-surface) 92%, transparent), rgba(237, 244, 251, 0.88)),
+    var(--bg-surface);
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.testimonialQuoteMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-bottom: 1.2rem;
+  border-radius: 0.95rem;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.testimonialQuote {
+  max-width: 46rem;
+  font-size: clamp(1.08rem, 2vw, 1.38rem);
+  line-height: 1.85;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.testimonialMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.7rem;
+}
+
+.testimonialIdentity {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.testimonialAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.testimonialAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonialMeta strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.testimonialMeta span {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.testimonialStat {
+  padding: 0.7rem 0.9rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-blue) 8%, transparent);
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.testimonialButton,
+.testimonialDot {
+  border: none;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.testimonialButton {
+  position: absolute;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-surface) 92%, transparent);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.testimonialButtonLeft {
+  left: 0;
+}
+
+.testimonialButtonRight {
+  right: 0;
+}
+
+.testimonialButton:hover,
+.testimonialDot:hover {
+  transform: translateY(calc(-50% - 2px));
+}
+
+.testimonialDots {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transform: translateX(-50%);
+}
+
+.testimonialDot {
+  width: 0.78rem;
+  height: 0.78rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+.testimonialDotActive {
+  width: 2rem;
+  background: var(--primary);
+}
+
+.sectionHeading h2 {
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+
+.sectionEyebrow {
+  padding: 0.48rem 0.82rem;
+  margin-bottom: 1rem;
+}
+
+.cardKicker,
+.featureAccent {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.cardKicker {
+  margin-bottom: 1rem;
+  color: #93c5fd;
+}
+
+.featureSection {
+  padding-bottom: 4rem;
+}
+
+.sectionHeading {
+  max-width: 42rem;
+  margin-bottom: 2rem;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.featureCard {
+  border-radius: 1.7rem;
+  padding: 1.6rem;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.featureCard:hover,
+.heroPhotoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.09);
+}
+
+.featureAccent {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.featureCard h3 {
+  font-size: 1.22rem;
+  margin-bottom: 0.8rem;
+}
+
+.featureCard p {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+@media (max-width: 980px) {
+
+  .heroShell,
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroInner {
+    min-height: auto;
+  }
+
+  .heroCopy h1 {
+    max-width: none;
+  }
+
+  .heroBackdrop {
+    right: 0;
+    width: 100%;
+    height: 22rem;
+    top: 68%;
+  }
+
+  .heroVisual {
+    justify-items: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .heroSection {
+    padding-top: 1rem;
+  }
+
+  .heroInner,
+  .testimonialSection,
+  .featureSection {
+    width: min(1120px, calc(100% - 1.25rem));
+  }
+
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobileMenuToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobileOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 80;
+  }
+
+  .navActions {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 260px;
+    background: var(--surface);
+    padding: 6rem 1.5rem;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    z-index: 90;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  }
+
+  .navActionsOpen {
+    transform: translateX(0);
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 80%;
+  }
+
+  .navLink,
+  .navButton,
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(2.25rem, 10vw, 3.2rem);
+  }
+
+  .heroCopy p,
+  .testimonialQuote,
+  .featureCard p {
+    font-size: 0.98rem;
+  }
+
+  .heroPhotoCard {
+    width: 100%;
+  }
+
+  .heroImage {
+    height: 26rem;
+  }
+
+  .heroBackdrop {
+    height: 18rem;
+    top: 74%;
+    filter: blur(14px);
+  }
+
+  .testimonialCard {
+    padding: 1.35rem;
+  }
+
+  .testimonialMeta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .testimonialShell {
+    padding: 0 0 3.25rem;
+  }
+
+  .testimonialButton {
+    top: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  .testimonialButton:hover {
+    transform: translateY(-2px);
+  }
+
+  .testimonialButtonLeft {
+    left: 0;
+  }
+
+  .testimonialButtonRight {
+    right: 0;
+  }
+
+  .featureCard,
+  .heroPhotoCard {
+    padding: 1.35rem;
+  }
+}

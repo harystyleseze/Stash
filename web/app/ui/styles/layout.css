@@ -1,0 +1,213 @@
+header {
+  width: 100% !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #4f5357;
+  color: #FFFFFF;
+  padding: 10px;
+  border-bottom: 1px solid var(--border-card);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  animation: fadeInDown 0.6s ease-out forwards;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 768px) {
+  header {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+header nav {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  header nav {
+    width: auto;
+  }
+}
+header nav ul {
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  header nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+  }
+}
+header nav ul li {
+  list-style: none;
+}
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+header nav ul li:hover a {
+  border-bottom: 2px solid #fbbf24;
+  color: #fbbf24;
+  transform: translateY(-2px);
+}
+header nav ul li:hover {
+  color: #fbbf24;
+}
+header .header-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+@media (min-width: 768px) {
+  header .header-actions {
+    margin-top: 0;
+  }
+}
+header .header-actions button {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 0;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+header .header-actions button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+@media (min-width: 768px) {
+  header .header-actions button {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+header .header-actions .wallet-badge {
+  background-color: #fbbf24;
+  padding: 7px;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+header .header-actions .wallet-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(251, 191, 36, 0.3);
+}
+header .header-actions .mobile-toggle {
+  background: none;
+  border: none;
+  color: #fbbf24;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+header .header-actions .mobile-toggle:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+@media (min-width: 768px) {
+  header .header-actions .mobile-toggle {
+    display: none;
+  }
+}
+
+.nav-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+.nav-sidebar .title {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #0F172A;
+}
+.nav-sidebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.nav-sidebar ul li {
+  list-style: none;
+  width: 90%;
+  margin: 0 auto;
+}
+.nav-sidebar ul li .active {
+  background-color: rgba(8, 84, 78, 0.4);
+  border-right: 4px solid #08544e;
+  padding: 0 10px;
+}
+.nav-sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+.nav-sidebar ul li a div {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 5px;
+  padding: 10px;
+}
+.nav-sidebar ul li:hover a {
+  border-bottom: 4px solid #08544e;
+  transform: translateY(-2px);
+}
+@media (min-width: 768px) {
+  .nav-sidebar {
+    width: 15%;
+  }
+}
+
+footer {
+  width: 100%;
+  background-color: #090d18;
+  color: #FFFFFF;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  footer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 50px;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+footer div h2 {
+  font-size: 1rem;
+  width: 100%;
+  color: #fbbf24;
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  footer div h2 {
+    width: -moz-max-content;
+    width: max-content;
+  }
+}/*# sourceMappingURL=layout.css.map */

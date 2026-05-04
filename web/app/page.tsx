@@ -1,65 +1,125 @@
 import Image from "next/image";
+import { ShieldCheck, TrendingUp, Wallet } from "lucide-react";
+import LandingTestimonials from "./ui/landing-testimonials";
+import LandingHeader from "./ui/landing-header";
+import LandingFooter from "./ui/landing-footer";
+import { LandingHeroCta } from "@/components/shared/landing-hero-cta";
+import { AutoRedirectOnConnect } from "@/components/shared/auto-redirect-on-connect";
+import styles from "./page.module.css";
+
+const features = [
+    {
+        title: "Spend-ready balances",
+        description:
+            "See what is available now, what is earning, and what needs to move next without hunting across screens.",
+        accent: "Daily clarity",
+        icon: Wallet,
+    },
+    {
+        title: "Yield without friction",
+        description:
+            "Put idle funds into flexible savings and keep the experience lightweight enough for everyday use.",
+        accent: "Passive growth",
+        icon: TrendingUp,
+    },
+    {
+        title: "Calm operational control",
+        description:
+            "Move stablecoins confidently with a simpler flow, cleaner numbers, and less noise around each action.",
+        accent: "Confident movement",
+        icon: ShieldCheck,
+    },
+];
+
+const testimonials = [
+    {
+        quote:
+            "Stash is the first stablecoin app I have used that feels calm enough for daily money movement. I do not need to think twice before opening it.",
+        name: "Amara Yusuf",
+        role: "Operations lead",
+        stat: "Treasury transfers every week",
+        image: "/happy customer.jpg",
+    },
+    {
+        quote:
+            "The savings flow feels simple, not intimidating. I can see what is available, what is earning, and move between both without the usual confusion.",
+        name: "Daniel Cole",
+        role: "Founder",
+        stat: "Uses flexible vaults daily",
+        image: "/customer.jpg",
+    },
+    {
+        quote:
+            "What kept me around was the clarity. It feels more like a polished neobank than a crypto dashboard stitched together from too many ideas.",
+        name: "Teni Adebayo",
+        role: "Finance manager",
+        stat: "Runs team payouts in USDC",
+        image: "/happy customer.jpg",
+    },
+];
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    return (
+        <>
+            <AutoRedirectOnConnect to="/dashboard/overview" />
+            <main className={styles.landingPage}>
+                <section className={styles.heroSection}>
+                    <div className={styles.heroInner}>
+                        <LandingHeader />
+
+                        <div className={styles.heroShell}>
+                            <div className={styles.heroBackdrop} aria-hidden="true" />
+
+                            <div className={styles.heroCopy}>
+                                <h1>Digital dollar banking that feels calm, clear, and beautifully simple.</h1>
+                                <p>
+                                    Stash brings spending, transfers, and savings into one thoughtful workspace
+                                    for people who want stablecoin money management to feel less technical and
+                                    more natural.
+                                </p>
+
+                                <LandingHeroCta />
+                            </div>
+
+                            <div className={styles.heroVisual}>
+                                <div className={styles.heroPhotoCard}>
+                                    <Image
+                                        src="/happy customer.jpg"
+                                        alt="Happy customer using Stash"
+                                        width={920}
+                                        height={1080}
+                                        className={styles.heroImage}
+                                        priority
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <LandingTestimonials items={testimonials} />
+
+                <section className={styles.featureSection}>
+                    <div className={styles.sectionHeading}>
+                        <span className={styles.sectionEyebrow}>Core value</span>
+                        <h2>Useful features, presented with a little more taste.</h2>
+                    </div>
+
+                    <div className={styles.featureGrid}>
+                        {features.map(({ title, description, accent, icon: Icon }) => (
+                            <article key={title} className={styles.featureCard}>
+                                <span className={styles.featureAccent}>{accent}</span>
+                                <span className={styles.featureIcon}>
+                                    <Icon size={20} />
+                                </span>
+                                <h3>{title}</h3>
+                                <p>{description}</p>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            </main>
+            <LandingFooter />
+        </>
+    );
 }

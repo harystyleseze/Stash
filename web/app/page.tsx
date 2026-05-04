@@ -4,7 +4,6 @@ import LandingTestimonials from "./ui/landing-testimonials";
 import LandingHeader from "./ui/landing-header";
 import LandingFooter from "./ui/landing-footer";
 import { LandingHeroCta } from "@/components/shared/landing-hero-cta";
-import { AutoRedirectOnConnect } from "@/components/shared/auto-redirect-on-connect";
 import styles from "./page.module.css";
 
 const features = [
@@ -61,7 +60,6 @@ const testimonials = [
 export default function Home() {
     return (
         <>
-            <AutoRedirectOnConnect to="/dashboard/overview" />
             <main className={styles.landingPage}>
                 <section className={styles.heroSection}>
                     <div className={styles.heroInner}>
@@ -108,10 +106,10 @@ export default function Home() {
                     <div className={styles.featureGrid}>
                         {features.map(({ title, description, accent, icon: Icon }) => (
                             <article key={title} className={styles.featureCard}>
-                                <span className={styles.featureAccent}>{accent}</span>
                                 <span className={styles.featureIcon}>
                                     <Icon size={20} />
                                 </span>
+                                <span className={styles.featureAccent}>{accent}</span>
                                 <h3>{title}</h3>
                                 <p>{description}</p>
                             </article>

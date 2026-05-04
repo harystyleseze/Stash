@@ -4,7 +4,7 @@
   --surface-soft: #edf4fb;
   --surface-deep: var(--text-primary);
   --primary: var(--accent-blue);
-  --primary-soft: #dbeafe;
+  --primary-soft: color-mix(in srgb, var(--accent-blue) 12%, transparent);
   --text-main: var(--text-primary);
   --text-muted: var(--text-secondary);
   --text-soft: var(--text-secondary);
@@ -448,9 +448,9 @@
 .featureAccent {
   display: inline-flex;
   align-items: center;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -460,23 +460,23 @@
 }
 
 .featureSection {
-  padding-bottom: 4rem;
+  padding: 3rem 0 5rem;
 }
 
 .sectionHeading {
   max-width: 42rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .featureGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .featureCard {
   border-radius: 1.7rem;
-  padding: 1.6rem;
+  padding: 1.75rem;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease;
@@ -489,17 +489,20 @@
 }
 
 .featureAccent {
-  color: var(--primary);
-  margin-bottom: 1rem;
+  padding: 0.22rem 0.62rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-blue) 10%, transparent);
+  color: var(--accent-blue);
+  margin-bottom: 0.85rem;
 }
 
 .featureIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 1rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.9rem;
   margin-bottom: 1rem;
   background: var(--primary-soft);
   color: var(--primary);

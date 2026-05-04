@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { ExternalLink, X, Wallet } from 'lucide-react';
 import { useWallet, type EIP6963ProviderDetail } from '@/app/context/WalletContext';
 
@@ -12,7 +13,26 @@ export function WalletModal() {
     hasInjectedWallet,
     isConnecting,
     connectWith,
+    isConnected,
   } = useWallet();
+
+  const router = useRouter();
+  const pathname = usePathname();
+  // Tracks whether this modal session was user-initiated (vs auto-reconnect)
+  const wasOpenRef = useRef(false);
+
+  // Set flag when modal opens, clear it when modal closes (covers dismiss-without-connect)
+  useEffect(() => {
+    wasOpenRef.current = isWalletModalOpen;
+  }, [isWalletModalOpen]);
+
+  // After a user-initiated connect from the landing page, redirect to dashboard
+  useEffect(() => {
+    if (wasOpenRef.current && isConnected && !isWalletModalOpen && pathname === '/') {
+      wasOpenRef.current = false;
+      router.push('/dashboard/overview');
+    }
+  }, [isConnected, isWalletModalOpen, pathname, router]);
 
   // Close on Esc
   useEffect(() => {

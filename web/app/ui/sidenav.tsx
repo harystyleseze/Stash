@@ -20,7 +20,12 @@ const Sidebar = ({ isOpen, onNavigate }: SidebarProps) => {
             className={`nav-sidebar ${isOpen ? "open" : ""}`}
         >
             <div className="title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <Link
+                    href="/"
+                    onClick={onNavigate}
+                    style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'inherit' }}
+                    aria-label="Go to landing page"
+                >
                     <span className="brand-pill">
                         <span className="brand-core" />
                         <span className="brand-spark" />
@@ -29,8 +34,8 @@ const Sidebar = ({ isOpen, onNavigate }: SidebarProps) => {
                         <h1>Stash</h1>
                         <p>Stablecoin banking</p>
                     </div>
-                </div>
-                
+                </Link>
+
                 <button
                     className="mobile-close-btn"
                     onClick={onNavigate}

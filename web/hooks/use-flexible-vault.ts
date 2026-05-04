@@ -7,7 +7,7 @@ import { getFlexibleVaultContract, getReadProvider } from '@/lib/contracts';
 const REFRESH_INTERVAL = 15_000;
 
 export function useFlexibleVault() {
-  const { address } = useWallet();
+  const { address, provider } = useWallet();
   const [shares, setShares] = useState<bigint | null>(null);
   const [totalAssets, setTotalAssets] = useState<bigint | null>(null);
   const [maxWithdrawUsdc, setMaxWithdraw] = useState<bigint | null>(null);
@@ -24,7 +24,8 @@ export function useFlexibleVault() {
     }
     setIsLoading(true);
     try {
-      const contract = getFlexibleVaultContract(getReadProvider());
+      const reader = provider ?? getReadProvider();
+      const contract = getFlexibleVaultContract(reader);
       const [bal, ta, mw] = (await Promise.all([
         contract.balanceOf(address),
         contract.totalAssets(),
@@ -46,7 +47,7 @@ export function useFlexibleVault() {
     } finally {
       setIsLoading(false);
     }
-  }, [address]);
+  }, [address, provider]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

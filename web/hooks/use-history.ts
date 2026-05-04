@@ -48,7 +48,7 @@ async function fetchEventsChunked(
 }
 
 export function useHistory() {
-  const { address } = useWallet();
+  const { address, provider: walletProvider } = useWallet();
   const [events, setEvents] = useState<HistoryEvent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,11 +61,11 @@ export function useHistory() {
     setIsLoading(true);
     setError(null);
     try {
-      const provider = getReadProvider();
-      const toBlock = BigInt(await provider.getBlockNumber());
-      const flexible = getFlexibleVaultContract(provider);
-      const fixed = getFixedVaultContract(provider);
-      const p2p = getP2PTransferContract(provider);
+      const reader = walletProvider ?? getReadProvider();
+      const toBlock = BigInt(await reader.getBlockNumber());
+      const flexible = getFlexibleVaultContract(reader);
+      const fixed = getFixedVaultContract(reader);
+      const p2p = getP2PTransferContract(reader);
 
       const [flexDeposits, flexWithdraws, fixedOpens, fixedCloses, p2pSent, p2pReceived] =
         await Promise.all([
@@ -173,7 +173,7 @@ export function useHistory() {
     } finally {
       setIsLoading(false);
     }
-  }, [address]);
+  }, [address, walletProvider]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

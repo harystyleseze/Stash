@@ -8,8 +8,17 @@ import P2PTransferArtifact from './abi/P2PTransfer.json';
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
 export const BASE_SEPOLIA_CHAIN_ID_HEX = '0x14a34';
 
+// CORS-friendly Base Sepolia RPCs. https://sepolia.base.org is the official
+// endpoint but its CORS headers and rate-limit can flake from the browser.
+// We try the configured endpoint first, then fall back through this list.
+export const FALLBACK_RPC_URLS = [
+  'https://base-sepolia.public.blastapi.io',
+  'https://base-sepolia-rpc.publicnode.com',
+  'https://sepolia.base.org',
+];
+
 export const RPC_URL =
-  process.env.NEXT_PUBLIC_RPC_URL ?? 'https://sepolia.base.org';
+  process.env.NEXT_PUBLIC_RPC_URL ?? FALLBACK_RPC_URLS[0];
 
 // ─── Deployed addresses (Base Sepolia) ────────────────────────────────────────
 
@@ -54,7 +63,22 @@ export const getUsdcContract = (runner: ContractRunner) =>
 let _readProvider: JsonRpcProvider | null = null;
 export function getReadProvider(): JsonRpcProvider {
   if (!_readProvider) {
-    _readProvider = new JsonRpcProvider(RPC_URL, BASE_SEPOLIA_CHAIN_ID);
+    // staticNetwork=true skips the chainId detection RPC call (one fewer round-trip)
+    _readProvider = new JsonRpcProvider(RPC_URL, BASE_SEPOLIA_CHAIN_ID, {
+      staticNetwork: true,
+    });
   }
   return _readProvider;
+}
+
+// FallbackProvider: tries the next RPC if the current one errors or is slow.
+// Builds lazily on first read because some Next.js SSR contexts choke on
+// network construction at module load.
+let _fallbackProvider: JsonRpcProvider | null = null;
+export function getFallbackReadProvider(): JsonRpcProvider {
+  if (_fallbackProvider) return _fallbackProvider;
+  _fallbackProvider = new JsonRpcProvider(FALLBACK_RPC_URLS[1], BASE_SEPOLIA_CHAIN_ID, {
+    staticNetwork: true,
+  });
+  return _fallbackProvider;
 }

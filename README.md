@@ -1,320 +1,272 @@
-# Stash
+# Stash — A non-custodial USDC neobank for emerging markets
 
-**Stash** is a non-custodial USDC savings app built on Base. It lets anyone hold USD savings on-chain without giving up custody — no bank account required, no counterparty holding your funds.
+> The dollar bank that fits in your pocket — no bank account, no custodian, no minimum balance.
 
-Three savings primitives, zero admin keys:
-
-- **Flexible savings** — deposit USDC, receive vault shares, withdraw any time.
-- **Fixed savings** — lock USDC for 30, 60, or 90 days. The contract enforces the lock; no one can bypass it, including the deployers.
-- **P2P transfers** — send USDC to any address with an optional on-chain memo for payment history.
-
-Targeted at users in economies with high inflation or limited access to USD financial products. The contracts are immutable, the vaults are non-custodial, and the code is fully open source.
+Stash is a non-custodial stablecoin neobank built on [Base](https://base.org). It gives anyone — starting with savers in Nigeria — programmable access to dollar-denominated savings and transfers through three immutable smart contracts. Funds never touch a Stash-controlled wallet; the user always holds the keys.
 
 ---
 
-## Repository layout
+## Table of contents
+
+1. [The problem](#1-the-problem)
+2. [How Stash solves it](#2-how-stash-solves-it)
+3. [Why Stash is different](#3-why-stash-is-different)
+4. [Market opportunity](#4-market-opportunity)
+5. [Validation & traction signals](#5-validation--traction-signals)
+6. [Architecture](#6-architecture)
+7. [Quick start](#7-quick-start)
+8. [Deployed contracts](#8-deployed-contracts)
+9. [Tech stack](#9-tech-stack)
+10. [Security](#10-security)
+11. [Roadmap](#11-roadmap)
+12. [Contributing](#13-contributing)
+13. [License](#14-license)
+
+---
+
+## 1. The problem
+
+In emerging markets — especially West and East Africa, Latin America, and parts of South Asia — the financial system fails ordinary people in three load-bearing ways:
+
+- **Currency depreciation eats savings.** The Nigerian Naira lost roughly **70% of its value** against the dollar between January 2023 and January 2025 (₦460 → ₦1,500+/USD). A teacher who saved ₦5M in cash in 2023 now has the purchasing power of ₦1.5M.
+- **Dollar accounts are gated.** Domiciliary (USD-denominated) bank accounts in Nigeria require minimum balances most people can't meet, opaque KYC, and arbitrary withdrawal limits. The CBN restricts naira-funded dollar inflows. Most workers have no real path to USD.
+- **The crypto alternative is unsafe.** Centralised exchanges have collapsed (FTX, Patricia in Nigeria, AfriCrypt) leaving users with no recourse. Self-custody is technically demanding: seed phrases, gas tokens, contract approvals, chain selection — every step is a place to lose money.
+
+The combined effect: **150+ million working-age Nigerians, and ~1.4B people across emerging markets, want dollar savings and have no safe, accessible way to get them.**
+
+## 2. How Stash solves it
+
+Stash is a savings-first neobank where the underlying asset is **Circle's USDC stablecoin on Base**, not a bank deposit. Three primitives, all on-chain, all non-custodial:
+
+- **Flexible vault (`svfUSDC`)** — instant-access USDC savings via an ERC-4626 vault. Deposit any amount, withdraw any time. On mainnet, deposits route into [Aave v3 on Base](https://aave.com) for protocol-level yield ([research](docs/yield-platforms-research.md)).
+- **Fixed vault** — time-locked positions for 30, 60, or 90 days. The contract enforces the lock; not even Stash can unlock early. Like a digital "ajo" / cooperative savings, but with on-chain settlement.
+- **P2P transfer** — send USDC directly to any wallet with an optional on-chain memo. Settles in seconds for less than a cent in gas.
+
+Layered on top, three UX commitments:
+
+- **Naira-first numbers.** Every USDC balance is shown alongside its real-time NGN-equivalent. Users see "₦1.5M saved" not "1,000.00 USDC". On the dashboard, Stash also shows the **Naira-denominated change since deposit** so users can see what currency depreciation has done to their effective purchasing power.
+- **Bank-grade off-ramp.** Withdraw to a Nigerian bank account at the live market rate via [Yellow Card](https://yellowcard.io)'s NIBSS-instant rails.
+- **No-ETH onboarding.** New users will never need to first acquire ETH for gas. Coinbase Smart Wallet + CDP Paymaster sponsors all deposits, withdrawals, and transfers up to a per-user limit.
+
+## 3. Why Stash is different
+
+| | Traditional banks (Nigeria) | CEXs (Binance, Bybit) | Self-custody DeFi | **Stash** |
+|---|---|---|---|---|
+| Custody of funds | Bank | Exchange | User | **User** |
+| USD-denominated savings | Domiciliary (gated) | USDT/USDC (CEX-held) | Yes | **Yes** |
+| Withdrawal to NGN bank | Yes (slow) | Indirect (P2P) | No | **Yes (instant)** |
+| Time-locked savings | Yes (admin can break) | No | Possible (DIY) | **Yes (contract-enforced)** |
+| Counterparty risk | High (CBN intervention, bank failures) | High (CEX collapse history) | Smart-contract risk only | **Smart-contract risk only** |
+| Onboarding effort | Days, paperwork | Hours, exchange KYC | Minutes (with friction) | **Minutes (no ETH needed)** |
+| Open-source code | No | No | Sometimes | **Yes (MIT)** |
+
+**The single sentence**: Stash is the only product that combines Nigerian-bank-account-grade off-ramp with non-custodial DeFi savings and a UX that doesn't assume the user understands gas, chains, or seed phrases.
+
+## 4. Market opportunity
+
+> Numbers below are conservative public estimates from World Bank, McKinsey, Statista, Chainalysis (2023–2025). Assumptions are explicit so they can be challenged.
+
+### TAM — Total Addressable Market
+
+The global population of adults in countries that combine (a) significant currency depreciation/inflation and (b) crypto adoption traction. Per Chainalysis Global Crypto Adoption Index, ~21 markets with adoption scores above 0.3 fit. Combined adult population: **≈1.4 billion**. Average annual savings the platform could service (assume $200/yr per saver as deposit-not-flow): **~$280B AUM TAM**.
+
+### SAM — Serviceable Addressable Market
+
+Sub-Saharan Africa + Southeast Asia + LatAm where Stash's tech stack (Base, USDC, Yellow Card / Onramper rails) operates today. Adult population: **~600M**. Stablecoin-curious cohort (per Chainalysis: ~7% of adults are active in stablecoins): **~42M users**. At $500 average deposit per user: **~$21B AUM SAM**.
+
+### SOM — Serviceable Obtainable Market (5 years)
+
+Nigeria-first beachhead. Nigerian working-age adults ~115M, of whom ~33M are smartphone-banked ([Statista, 2024](https://www.statista.com/topics/8108/banking-in-nigeria/)). Nigeria has **the highest crypto adoption rate in Africa** by Chainalysis 2024 — top 2 globally. Realistic 5-year capture (~1% of smartphone-banked adults): **~330,000 users × $400 average deposit = ~$130M AUM**.
+
+Revenue model (illustrative, not prescriptive):
+- 0.50% AUM annual fee on yield-routed flexible deposits → ~$650K ARR at 5-year SOM
+- 0.30% spread on fiat off-ramp → ~$300K ARR at moderate volume
+- Optional premium tier ($2/month) for advanced features → bonus
+
+These are **not** founder fantasies — they're the bottom-of-the-range scenarios. The opportunity is large enough to support a venture-scale outcome even at conservative capture rates.
+
+## 5. Validation & traction signals
+
+What we already know about demand:
+
+- **Stablecoin volume out of Africa keeps growing.** Sub-Saharan Africa processes [~$117B in crypto value annually per Chainalysis](https://www.chainalysis.com/blog/sub-saharan-africa-crypto-adoption/), with Nigeria leading. Stablecoin share: ~43% of all African crypto transactions.
+- **The naira/dollar gap is widening.** ₦460 (Jan 2023) → ₦1,540 (Jan 2025). Every month a Nigerian holds Naira savings is a month of measurable purchasing-power loss.
+- **Existing competitors prove demand exists.** Yellow Card (~$3B annual volume), Bitnob, Risevest, Bamboo, Chipper Cash — all show users want USD exposure. None of them combines non-custodial savings + locked savings + off-ramp + Naira-first UX in one product.
+- **Coinbase is leaning in.** The Coinbase × Yellow Card partnership (2024) explicitly settles USDC on Base for African users. This is the rail Stash uses too.
+
+What we still need to validate:
+- 30/60/90-day lock UX → does the 5–10% APY premium that yield protocols pay justify giving up access?
+- Off-ramp friction → how often does a user need to withdraw to NGN vs. just hold USDC?
+- Average deposit size → are users dipping in with $20 or committing $500?
+
+These are the questions the MVP exists to answer.
+
+## 6. Architecture
 
 ```
-stash/
-├── contracts/          Foundry workspace — all on-chain code
-│   ├── src/            Production Solidity contracts
-│   ├── script/         Deploy script (Foundry Solidity)
-│   ├── scripts/        Shell helpers (install-oz, verify)
-│   ├── test/           Unit · fuzz · fork · invariant tests
-│   ├── foundry.toml    Compiler + RPC + Etherscan config
-│   ├── README.md       Contracts-specific setup guide
-│   └── ARCHITECTURE.md Full architecture + deployed addresses
-│
-├── web/                Next.js 16 app — frontend
-│   ├── app/            App Router pages and layouts
-│   ├── public/         Static assets
-│   ├── next.config.ts
-│   └── package.json
-│
-├── .github/
-│   └── workflows/
-│       └── test.yml    CI — forge fmt · build · test · coverage
-│
-├── README.md           This file
-└── CONTRIBUTING.md     How to contribute
+┌──────────────────────────────────────────────────────────────────┐
+│                       USER (Anywhere i.e Lagos / Abuja)          │
+│                  smartphone · MetaMask · Coinbase Wallet         │
+└──────────────────────────────────────┬───────────────────────────┘
+                                       │
+                                  Wallet signs
+                                       │
+                                       ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                    Stash Web App (Next.js 16)                    │
+│   landing · dashboard · flexible · fixed · transfer · settings   │
+│                ethers.js v6 + EIP-6963 wallet picker             │
+│                Naira-equivalent stat · live FX rate              │
+└──────────────────────────────────────┬───────────────────────────┘
+                                       │
+                              JSON-RPC + signed tx
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                          BASE  (chain 84532 / 8453)             │
+│                                                                 │
+│   ┌────────────────────┐  ┌────────────────────┐  ┌──────────┐  │
+│   │   FlexibleVault    │  │     FixedVault     │  │ P2PTrans │  │
+│   │   ERC-4626         │  │  positions[]       │  │ memo evt │  │
+│   │   _decimalsOffset=6│  │  30/60/90d locks   │  │          │  │
+│   │   nonReentrant     │  │  immutable unlockAt│  │          │  │
+│   └─────────┬──────────┘  └─────────┬──────────┘  └─────┬────┘  │
+│             │                       │                   │       │
+│             └────── SafeERC20 ──────┴────── transferFrom ───────│
+│                              │                                  │
+│                    ┌─────────▼─────────┐                        │
+│                    │   USDC (Circle)   │                        │
+│                    └───────────────────┘                        │
+└─────────────────────────────────────────────────────────────────┘
+
+  Future (mainnet):
+   FlexibleVault deposits → routed to Aave v3 on Base for yield
+   Withdraw button → Yellow Card NIBSS-instant payout to NGN bank
+   Connect button → Coinbase Smart Wallet + CDP Paymaster (no ETH)
 ```
 
----
+Three independent, immutable contracts. No proxy, no admin, no governance.
 
-## How it works
+The frontend is a pure client app. **No backend, no database, no indexer.** All reads come from RPC; all history comes from `eth_getLogs`. Browser localStorage caches wallet selection and FX baselines. This minimizes attack surface and operating cost.
 
-### Smart contracts
-
-Three immutable contracts deployed on Base Sepolia (testnet). All share one underlying asset: **Circle-native USDC**.
-
-#### FlexibleVault — instant-access savings
-
-Implements [ERC-4626](https://eips.ethereum.org/EIPS/eip-4626), the tokenised vault standard. Users deposit USDC and receive `svfUSDC` shares representing their proportional claim on the vault's total assets.
-
-Key properties:
-- `_decimalsOffset() = 6` combined with a 1 USDC seed-burn at deploy prevents the first-depositor inflation attack.
-- `nonReentrant` on `deposit`, `mint`, `withdraw`, `redeem`.
-- No admin, no pause, no proxy. Shares are redeemable at any time.
-
-#### FixedVault — time-locked savings
-
-Not ERC-4626. Each user holds an array of `Position` structs, one per deposit. Every position records an `amount`, an `unlockAt` timestamp, and a `withdrawn` flag — all packed into one 32-byte storage slot.
-
-Key properties:
-- Lock durations: **30 days**, **60 days**, or **90 days** — nothing else is accepted.
-- `unlockAt` is written once at deposit time and never changes.
-- `withdraw(positionId)` reverts with `NotYetUnlocked(unlockAt)` if called before maturity. There is no admin function to override this.
-- `AlreadyWithdrawn` prevents double-spending.
-
-#### P2PTransfer — USDC transfer with memo
-
-A thin wrapper around USDC's `transferFrom`. Its only purpose is to emit `Sent(from, to, amount, memo)` — a structured, indexed event that the frontend uses to build a transaction history without a backend indexer.
-
-Validation: non-zero address, non-self, non-zero amount, memo ≤ 256 bytes.
-
----
-
-### Web app
-
-Built with **Next.js 16** (App Router), **TypeScript**, **Tailwind CSS v4**, and **React 19**.
-
-Chain interaction uses **wagmi v2** + **viem v2**. Wallet connection uses **RainbowKit** (MetaMask, Rabby, Rainbow, WalletConnect). No Privy, no paymaster, no account abstraction — plain EOA wallets.
-
-All on-chain reads are done directly via RPC:
-- User USDC balance and flexible vault balance via `multicall`.
-- Fixed vault positions via `FixedVault.getPositions(user)`.
-- Transaction history via `getLogs` on `Deposit`/`Withdraw`/`PositionOpened`/`PositionClosed`/`Sent` events, filtered to the connected address.
-
-No backend server, no indexer, no database. Everything is read from the chain or cached in the browser.
-
----
-
-### Contract ↔ frontend integration
-
-The frontend talks to the contracts through three ABIs generated from the compiled artifacts:
-
-```
-contracts/out/FlexibleVault.sol/FlexibleVault.json   → web/lib/abi/FlexibleVault.json
-contracts/out/FixedVault.sol/FixedVault.json         → web/lib/abi/FixedVault.json
-contracts/out/P2PTransfer.sol/P2PTransfer.json       → web/lib/abi/P2PTransfer.json
-```
-
-Contract addresses are hard-coded in `web/lib/addresses.ts` per chain:
-
-```ts
-export const ADDRESSES = {
-  baseSepolia: {
-    usdc:          '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
-    flexibleVault: '0x56fB93B19bBaF700A4a9214388d664d1A25A699E',
-    fixedVault:    '0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8',
-    p2pTransfer:   '0x0C8d08a5d2e107b6f0F09025230C8458376062e7',
-  },
-} as const
-```
-
-Every deposit requires a two-step flow: `USDC.approve(vault, amount)` → `vault.deposit(amount, ...)`. This is a known UX gap — `permit`-based one-step deposits are on the roadmap.
-
----
-
-## Deployed contracts — Base Sepolia
-
-| Contract | Address | Explorer |
-|---|---|---|
-| USDC (Circle-native) | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | [BaseScan](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e) |
-| FlexibleVault | `0x56fB93B19bBaF700A4a9214388d664d1A25A699E` | [BaseScan ✅](https://sepolia.basescan.org/address/0x56fB93B19bBaF700A4a9214388d664d1A25A699E) |
-| FixedVault | `0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8` | [BaseScan ✅](https://sepolia.basescan.org/address/0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8) |
-| P2PTransfer | `0x0C8d08a5d2e107b6f0F09025230C8458376062e7` | [BaseScan ✅](https://sepolia.basescan.org/address/0x0C8d08a5d2e107b6f0F09025230C8458376062e7) |
-
-All three contracts are source-verified. See [`contracts/ARCHITECTURE.md`](contracts/ARCHITECTURE.md) for deployment transaction hashes, constructor arguments, gas used, and full contract reference.
-
----
-
-## Prerequisites
-
-| Tool | Version | Install |
-|---|---|---|
-| **Foundry** (`forge`, `cast`) | latest stable | `curl -L https://foundry.paradigm.xyz \| bash && foundryup` |
-| **Node.js** | 20 LTS | [nodejs.org](https://nodejs.org) |
-| **npm** | 10+ | bundled with Node |
-| **git** | 2.30+ | OS package |
-| **jq** | 1.6+ | `brew install jq` |
-
----
-
-## Getting started
-
-### 1. Clone
+## 7. Quick start
 
 ```bash
+# clone
 git clone --recurse-submodules https://github.com/harystyleseze/stash.git
 cd stash
-```
 
-`--recurse-submodules` pulls `forge-std`. If you forgot: `git submodule update --init --recursive`.
-
-### 2. Contracts
-
-```bash
+# contracts (Foundry)
 cd contracts
-./scripts/install-oz.sh   # downloads OZ Contracts 5.1.0 (idempotent)
-forge build               # compile
-forge test                # run tests
-```
+./scripts/install-oz.sh
+forge build && forge test
 
-Expected: `85 tests passed, 0 failed, 8 skipped` (skipped = fork tests that need a live RPC).
-
-To run fork tests against real USDC on Base Sepolia:
-
-```bash
-export BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-forge test --match-path 'test/fork/*.base-sepolia.fork.t.sol' -vv
-```
-
-### 3. Web app
-
-```bash
-cd web
+# web app
+cd ../web
 npm install
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-To connect to the testnet contracts you need a wallet configured for **Base Sepolia** (chain ID `84532`) and some Base Sepolia ETH (for gas). Testnet USDC from [Circle's faucet](https://faucet.circle.com) — select Base Sepolia and request up to 20 USDC.
+To actually deposit / withdraw on Base Sepolia testnet you need:
+1. A Web3 wallet (MetaMask, Coinbase Wallet, or anything announcing via [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963)).
+2. **Base Sepolia ETH** for gas — get some at any Base Sepolia faucet (try [Coinbase Faucet](https://portal.cdp.coinbase.com/products/faucet) or [QuickNode](https://faucet.quicknode.com/base/sepolia)).
+3. **Base Sepolia USDC** — request up to 20 USDC at [Circle's testnet faucet](https://faucet.circle.com) (select "Base Sepolia").
 
----
+When you click **Get started** on the landing page, Stash opens a wallet-selection modal listing every Web3 wallet your browser exposes. After connecting, you're auto-redirected to the dashboard.
 
-## Environment variables
+### Environment
 
-### Contracts (`contracts/.env`)
-
-Copy the template and fill in your values:
+A single `.env.local` file (web/) is enough. Both variables are optional:
 
 ```bash
-cp contracts/.env.example contracts/.env
+# web/.env.local — all optional
+NEXT_PUBLIC_RPC_URL=https://base-sepolia.public.blastapi.io   # default fine
+NEXT_PUBLIC_LOG_CHUNK_SIZE=999                                 # public RPCs limit getLogs to 1000 blocks
 ```
 
-| Variable | Required for | Description |
+No project ID, no API keys, no wallet-vendor signups required.
+
+## 8. Deployed contracts
+
+**Network:** Base Sepolia (chain ID `84532`). Mainnet coming after audit.
+
+| Contract | Address | Source verified |
 |---|---|---|
-| `PRIVATE_KEY` | Deploy, verify | Deploy wallet private key. Never commit. |
-| `ETHERSCAN_API_KEY` | Verify | Etherscan V2 key — one key covers all supported chains. Free at [etherscan.io/myapikey](https://etherscan.io/myapikey). |
-| `BASE_SEPOLIA_RPC_URL` | Fork tests, deploy | Defaults to `https://sepolia.base.org` if not set. |
-| `BASE_MAINNET_RPC_URL` | Fork tests (mainnet) | Only needed for Base mainnet fork tests. |
-| `USDC_ADDRESS` | Deploy | Circle USDC address for the target chain. |
+| USDC (Circle-native) | [`0x036CbD53842c5426634e7929541eC2318f3dCF7e`](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e) | — |
+| FlexibleVault (svfUSDC) | [`0x56fB93B19bBaF700A4a9214388d664d1A25A699E`](https://sepolia.basescan.org/address/0x56fB93B19bBaF700A4a9214388d664d1A25A699E) | ✅ |
+| FixedVault | [`0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8`](https://sepolia.basescan.org/address/0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8) | ✅ |
+| P2PTransfer | [`0x0C8d08a5d2e107b6f0F09025230C8458376062e7`](https://sepolia.basescan.org/address/0x0C8d08a5d2e107b6f0F09025230C8458376062e7) | ✅ |
 
-### Web (`web/.env.local`)
 
-```bash
-NEXT_PUBLIC_CHAIN_ID=84532                        # Base Sepolia
-NEXT_PUBLIC_RPC_URL=https://sepolia.base.org
-```
+## 9. Tech stack
 
----
+### Smart contracts
+- **Solidity** `0.8.26` · EVM `cancun` · optimizer 10,000 runs
+- **Foundry** for build, test, fuzz, invariant, fork tests, and deployment scripts
+- **OpenZeppelin Contracts** v5.1.0 (ERC-4626, ERC-20, SafeERC20, ReentrancyGuard)
+- **forge-std** for cheats and test helpers
 
-## Deploying the contracts
+### Web app
+- **Next.js 16** (App Router) on **React 19** with **TypeScript** strict mode
+- **ethers.js v6** for chain interaction (no wagmi, no AppKit dependency)
+- **EIP-6963** wallet discovery for multi-wallet picker (MetaMask, Coinbase Wallet, Brave, Rabby, etc.)
+- Pure CSS / SCSS with CSS-variable-based light/dark theming via **next-themes**
+- **lucide-react** icons; **react-icons** for select brand marks
+- No backend, no database. All on-chain reads via JSON-RPC (`eth_call`, `eth_getLogs`)
 
-Full step-by-step in [`contracts/README.md`](contracts/README.md). Short version:
+## 10. Security
 
-```bash
-cd contracts
-set -a; source .env; set +a
+### Properties enforced by the contracts
 
-forge script script/Deploy.s.sol \
-  --rpc-url $BASE_SEPOLIA_RPC_URL \
-  --private-key $PRIVATE_KEY \
-  --broadcast
-```
+- **Immutable**: no proxy, no upgrade mechanism, no `selfdestruct`, no `delegatecall` on user-facing surfaces.
+- **No admin**: zero privileged roles. Nobody can pause, drain, or alter the contracts after deployment.
+- **Reentrancy**: `ReentrancyGuard` on every state-changing entry point.
+- **Safe ERC-20**: every token transfer goes through OpenZeppelin's `SafeERC20`.
+- **ERC-4626 inflation attack** mitigated via `_decimalsOffset() = 6` plus a 1 USDC seed-burn at deploy.
+- **Custom errors** for every revert path — exact failure mode is parsed and surfaced in the UI.
 
-After deploy, verify on BaseScan:
+### Properties verified by tests
 
-```bash
-CHAIN=base-sepolia \
-USDC_ADDRESS=0x036CbD53842c5426634e7929541eC2318f3dCF7e \
-FLEXIBLE_VAULT=0x<addr> \
-FIXED_VAULT=0x<addr> \
-P2P_TRANSFER=0x<addr> \
-ETHERSCAN_API_KEY=$ETHERSCAN_API_KEY \
-./scripts/verify.sh
-```
+- Unit + fuzz coverage at **100% lines / 100% branches** for `FixedVault`, `FlexibleVault`, `P2PTransfer`, and the deploy script.
+- **Invariant tests** (256 runs × 64 depth) confirm: vault balance ≥ open positions; total supply > 0 after seed-burn; locked positions are immutable until maturity; first-depositor inflation attack fails.
+- **Fork tests** against the real Circle USDC on Base Sepolia.
 
----
+## 11. Roadmap
 
-## Testing
+### MVP (current — Base Sepolia)
+- [x] Three immutable contracts deployed and verified
+- [x] End-to-end frontend wired to real on-chain state (no mock data)
+- [x] EIP-6963 wallet picker (MetaMask, Coinbase, Rabby, Brave, etc.)
+- [x] Naira-equivalent balance with live FX rate
+- [x] Per-position countdown timers + on-chain unlock enforcement
+- [x] Tx history via `eth_getLogs` with BaseScan deep-links
 
-### Contracts
+### V1 — Mainnet launch
+- [ ] External security audit (target: Spearbit or OpenZeppelin)
+- [ ] Base mainnet deployment of FlexibleVault, FixedVault, P2PTransfer
+- [ ] **Yield routing**: FlexibleVault deposits supply to Aave v3 USDC market on Base
+- [ ] **Off-ramp**: Yellow Card integration for USDC → NGN bank (NIBSS instant)
+- [ ] **Gasless onboarding**: CDP Paymaster + Coinbase Smart Wallet
+- [ ] `depositWithPermit` — one-tx flow via ERC-2612 / EIP-3009
 
-```bash
-cd contracts
+### V2 — Growth
+- [ ] Second yield vault: Morpho MetaMorpho (drop-in ERC-4626)
+- [ ] Recurring deposits via Coinbase Smart Wallet Spend Permissions
+- [ ] On-ramp: NGN bank → USDC via Yellow Card / Onramper
+- [ ] Multi-currency: GHS, KES, ZAR (Yellow Card already covers these)
+- [ ] Native cNGN support once liquidity arrives
 
-forge test                                         # all unit + fuzz + invariant + script tests
-forge test -vvv                                    # verbose
-forge test --match-contract FlexibleVault          # one suite
-forge coverage --no-match-path 'test/fork/*' \
-  --report summary                                 # coverage report
-```
+### V3 — Platform
+- [ ] Stash Card (USDC-funded virtual debit card)
+- [ ] Group savings ("ajo" cooperative — multi-sig vaults)
+- [ ] Salary streaming (Sablier-style payroll for crypto-paid teams)
 
-CI runs on every push and pull request via `.github/workflows/test.yml` — format check, build, full test suite, coverage.
+## 12. Contributing
 
-### Web
+See [CONTRIBUTING.md](CONTRIBUTING.md). Short version: fork → branch off `dev` → PR to `dev`. Never target `main` directly. Every PR runs `forge fmt --check`, `forge build`, `forge test`, `npm run build`, `npm run lint`.
 
-```bash
-cd web
-npm run lint     # ESLint
-npm run build    # production build smoke test
-```
+## 13. License
 
----
-
-## CI
-
-GitHub Actions (`.github/workflows/test.yml`) runs on every push and PR:
-
-1. `forge fmt --check` — code is formatted
-2. `forge build --sizes` — compiles cleanly, prints bytecode sizes
-3. `forge test -vvv` — all tests pass (fork tests skip gracefully without RPC env vars)
-4. `forge coverage --report summary` — coverage report printed to log
-
----
-
-## Architecture
-
-Full smart contract architecture, storage layouts, transaction flow diagrams, and security properties are documented in [`contracts/ARCHITECTURE.md`](contracts/ARCHITECTURE.md).
-
----
-
-## Security
-
-- Contracts are **immutable** — no proxy, no upgrade mechanism.
-- No admin roles — no address can pause, drain, or alter the contracts.
-- ERC-4626 inflation attack mitigated via `_decimalsOffset = 6` + 1 USDC seed-burn.
-- All state-changing functions protected with `ReentrancyGuard`.
-- All token transfers use OpenZeppelin `SafeERC20`.
-- Verified by property-based invariant testing (256 runs × 64 depth).
-
-The contracts have **not been audited**. Do not deploy to mainnet with real user funds before an independent audit.
-
-If you find a security issue, please report it privately before disclosing publicly.
-
----
-
-## Roadmap
-
-- [ ] `depositWithPermit` — one-transaction deposits via ERC-2612 / EIP-3009
-- [ ] `getOpenPositions` view helper on `FixedVault`
-- [ ] Atomic seed-burn in deploy (factory / `CREATE2`)
-- [ ] Base mainnet deployment
-- [ ] Independent security audit
-- [ ] cNGN support (Phase 2)
-- [ ] Yield routing to Morpho / Aave (Phase 3)
-
----
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow. Short version: fork → branch off `dev` → PR to `dev`. Never target `main` directly.
-
----
-
-## License
-
-MIT. See `SPDX-License-Identifier` headers in each Solidity file.
+MIT. See [`LICENSE`](LICENSE) and `SPDX-License-Identifier` headers in each Solidity

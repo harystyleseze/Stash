@@ -966,3 +966,259 @@ footer {
 .tx-toast.tx-toast-error {
     .tx-toast-icon { color: var(--error); }
 }
+
+// ------------------------------------------------------------
+//  WALLET CONNECT MODAL
+// ------------------------------------------------------------
+.wallet-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fadeIn 0.18s ease;
+}
+
+.wallet-modal {
+    width: 100%;
+    max-width: 420px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 24px 48px rgba(15, 23, 42, 0.2);
+    overflow: hidden;
+    animation: walletPop 0.22s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+@keyframes walletPop {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.wallet-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 22px 12px;
+
+    h3 {
+        margin: 0 0 4px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.45;
+    }
+}
+
+.wallet-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+        color: var(--text-primary);
+        border-color: var(--text-secondary);
+    }
+}
+
+.wallet-modal-body {
+    padding: 8px 14px 16px;
+}
+
+.wallet-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wallet-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font: inherit;
+    color: var(--text-primary);
+
+    &:hover:not(:disabled) {
+        border-color: var(--accent-blue);
+        background: color-mix(in srgb, var(--accent-blue) 6%, var(--bg-primary));
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.wallet-list-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.wallet-list-name {
+    flex: 1;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.wallet-list-cta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.wallet-empty {
+    padding: 8px 6px 12px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+
+    p {
+        margin: 6px 0;
+    }
+
+    strong {
+        color: var(--text-primary);
+    }
+}
+
+.wallet-empty-icon {
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.wallet-install-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: stretch;
+}
+
+.wallet-install-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    &:hover {
+        border-color: var(--accent-blue);
+    }
+}
+
+.wallet-modal-footer {
+    padding: 12px 22px 18px;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+
+    p {
+        margin: 4px 0;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+
+    a {
+        color: var(--accent-blue);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wallet-modal-backdrop,
+    .wallet-modal {
+        animation: none;
+    }
+}
+
+// ------------------------------------------------------------
+//  NGN-equivalent stat block (Overview "Accrued yield" card)
+// ------------------------------------------------------------
+.ngn-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.ngn-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.ngn-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.ngn-stat-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.ngn-stat-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    &.pos { color: var(--success); }
+    &.neg { color: var(--error); }
+}
+
+.ngn-stat-note {
+    margin: 6px 0 0;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}

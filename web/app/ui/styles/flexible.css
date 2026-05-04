@@ -2,9 +2,8 @@
 /* Background: var(--bg-primary), Card: var(--bg-surface), Primary: var(--accent-blue), Success: var(--success) */
 
 .flexible-section {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
+    width: 90%;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     padding: 24px;

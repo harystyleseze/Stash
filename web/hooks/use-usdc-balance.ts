@@ -7,7 +7,7 @@ import { getUsdcContract, getReadProvider } from '@/lib/contracts';
 const REFRESH_INTERVAL = 15_000;
 
 export function useUsdcBalance() {
-  const { address } = useWallet();
+  const { address, provider } = useWallet();
   const [balance, setBalance] = useState<bigint | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,7 +18,9 @@ export function useUsdcBalance() {
     }
     setIsLoading(true);
     try {
-      const contract = getUsdcContract(getReadProvider());
+      // Prefer the wallet's provider for reads (no CORS, no rate limit).
+      const reader = provider ?? getReadProvider();
+      const contract = getUsdcContract(reader);
       const result = (await contract.balanceOf(address)) as bigint;
       setBalance(result);
     } catch (err) {
@@ -26,7 +28,7 @@ export function useUsdcBalance() {
     } finally {
       setIsLoading(false);
     }
-  }, [address]);
+  }, [address, provider]);
 
   useEffect(() => {
     if (!address) {

@@ -14,7 +14,7 @@ interface RawPosition {
 }
 
 export function useFixedPositions() {
-  const { address } = useWallet();
+  const { address, provider } = useWallet();
   const [positions, setPositions] = useState<FixedPosition[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +25,8 @@ export function useFixedPositions() {
     }
     setIsLoading(true);
     try {
-      const contract = getFixedVaultContract(getReadProvider());
+      const reader = provider ?? getReadProvider();
+      const contract = getFixedVaultContract(reader);
       const raw = (await contract.getPositions(address)) as RawPosition[];
       const now = Math.floor(Date.now() / 1000);
       setPositions(
@@ -42,7 +43,7 @@ export function useFixedPositions() {
     } finally {
       setIsLoading(false);
     }
-  }, [address]);
+  }, [address, provider]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

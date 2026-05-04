@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./ui/theme-provider";
 import { Providers } from "./providers";
 import { TxStatusToast } from "@/components/shared/tx-status-toast";
+import { WalletModal } from "@/components/shared/wallet-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
           <Providers>
             {children}
             <TxStatusToast />
+            <WalletModal />
           </Providers>
         </ThemeProvider>
       </body>

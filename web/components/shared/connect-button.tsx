@@ -12,8 +12,15 @@ export function ConnectButton({
   label?: string;
   variant?: Variant;
 }) {
-  const { address, isConnected, isConnecting, isWrongNetwork, connect, disconnect, switchToBaseSepolia, hasInjectedWallet } =
-    useWallet();
+  const {
+    address,
+    isConnected,
+    isConnecting,
+    isWrongNetwork,
+    openWalletModal,
+    disconnect,
+    switchToBaseSepolia,
+  } = useWallet();
 
   if (isConnecting) {
     return (
@@ -41,10 +48,15 @@ export function ConnectButton({
 
     return (
       <div className="connect-cluster">
-        <span className="wallet-badge wallet-badge-connected" title={address}>
+        <button
+          type="button"
+          className="wallet-badge wallet-badge-connected"
+          onClick={openWalletModal}
+          title={address}
+        >
           <span className="indicator" />
           {shortenAddress(address)}
-        </span>
+        </button>
         <button type="button" className="connect-btn connect-btn-ghost" onClick={disconnect}>
           Disconnect
         </button>
@@ -52,15 +64,13 @@ export function ConnectButton({
     );
   }
 
-  const buttonLabel = !hasInjectedWallet ? 'Install wallet' : label;
-
   return (
     <button
       type="button"
       className={`connect-btn connect-btn-${variant}`}
-      onClick={() => connect()}
+      onClick={openWalletModal}
     >
-      {buttonLabel}
+      {label}
     </button>
   );
 }

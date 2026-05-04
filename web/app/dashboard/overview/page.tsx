@@ -11,6 +11,7 @@ import { useHistory } from '@/hooks/use-history';
 import { formatUsdc, formatUnlockDate, shortenAddress, approximateDateFromBlock } from '@/lib/format';
 import { BASESCAN_TX_BASE } from '@/lib/constants';
 import type { HistoryEvent } from '@/types';
+import { NgnStat } from '@/components/shared/ngn-stat';
 
 const Overview = () => {
     const router = useRouter();
@@ -106,11 +107,8 @@ const Overview = () => {
                     <div className="chart"></div>
                 </div>
                 <div className='Ayield'>
-                    <b>Accrued yield</b>
-                    <h3 title="Yield begins when protocol economics are enabled">—</h3>
-                    <span style={{ fontSize: '14px', color: '#3e3d3d' }}>
-                        Yield begins when protocol economics are enabled.
-                    </span>
+                    <b>Naira-denominated balance</b>
+                    <NgnStat totalUsdcRaw={totalNetWorth} />
                     <button className="yield-an" onClick={() => router.push('/dashboard/flexible')}>
                         Open vault
                     </button>

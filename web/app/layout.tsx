@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Stash",
   description: "Stablecoin neobank for saving, sending, and growing digital dollars.",
+  metadataBase: new URL('https://stashh-mvp.vercel.app'),
   openGraph: {
     images: ['/opengraph-image'],
   },

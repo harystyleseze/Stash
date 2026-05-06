@@ -156,6 +156,7 @@
   background: linear-gradient(135deg, var(--accent-blue), color-mix(in srgb, var(--accent-blue) 80%, black));
   color: var(--bg-surface);
   box-shadow: 0 14px 26px color-mix(in srgb, var(--accent-blue) 18%, transparent);
+  text-align: center;
 }
 
 .secondaryButton {
@@ -164,6 +165,8 @@
   border: 1px solid var(--border);
   color: var(--text-main);
   backdrop-filter: blur(12px);
+  text-align: center;
+
 }
 
 .navLink:hover,
@@ -807,6 +810,8 @@
   .primaryButton,
   .secondaryButton {
     width: 100%;
+    text-align: center;
+
   }
 
   .heroCopy h1 {

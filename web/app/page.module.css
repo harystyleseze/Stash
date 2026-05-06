@@ -26,12 +26,29 @@
 }
 
 .heroSection {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   padding: 1.5rem 0 4.5rem;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.heroSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.28), rgba(15, 23, 42, 0.18)),
+    url("/customer.jpg") center 24% / cover no-repeat;
+  filter: blur(18px);
+  opacity: 0.2;
+  transform: scale(1.08);
+  pointer-events: none;
 }
 
 .heroInner {
+  position: relative;
   width: min(1120px, calc(100% - 2rem));
   min-height: calc(100vh - 6rem);
   margin: 0 auto;
@@ -167,20 +184,7 @@
 }
 
 .heroBackdrop {
-  position: absolute;
-  top: 48%;
-  right: 1rem;
-  width: min(39rem, 48vw);
-  height: 32rem;
-  border-radius: 1rem;
-  background:
-    linear-gradient(rgba(15, 23, 42, 0.46), rgba(15, 23, 42, 0.5)),
-    url("/customer.jpg") center/cover no-repeat;
-  background-blend-mode: overlay;
-  filter: blur(18px);
-  opacity: 0.7;
-  transform: translateY(-50%) scale(1.14);
-  pointer-events: none;
+  display: none;
 }
 
 .heroCopy,
@@ -215,6 +219,53 @@
   margin-bottom: 1.15rem;
 }
 
+.heroHeadline {
+  display: inline;
+}
+
+.heroHeadlineSpace {
+  display: inline;
+}
+
+.heroHeadlineWord {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.heroHeadlineLetter {
+  display: inline-block;
+  color: var(--text-main);
+  opacity: 0;
+  transform: translateY(1.1em);
+  will-change: transform, opacity;
+  animation: heroHeadlineLetterScroll 10s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: var(--hero-letter-delay);
+}
+
+.heroHeadlineLetterAccent {
+  color: var(--accent-blue);
+}
+
+@keyframes heroHeadlineLetterScroll {
+
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(1.1em);
+  }
+
+  14%,
+  86% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+}
+
 .heroCopy p {
   max-width: 34rem;
   font-size: 1.03rem;
@@ -244,19 +295,44 @@
 
 .heroPhotoCard {
   position: relative;
-  width: min(100%, 32rem);
+  width: min(100%, 38rem);
   padding: 1rem;
   border-radius: 2.35rem;
   background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
   border: 1px solid var(--border);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+.heroPhotoStage {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 1.7rem;
+  overflow: hidden;
+  isolation: isolate;
+  background: color-mix(in srgb, var(--bg-primary) 72%, white);
+}
+
+.heroImageSlide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: perspective(1200px) rotateY(-90deg) scale(0.94);
+  transform-origin: center right;
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heroImageSlideActive {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) scale(1);
+  z-index: 1;
 }
 
 .heroImage {
   display: block;
-  width: 100%;
-  height: 34rem;
   object-fit: cover;
   border-radius: 1.7rem;
 }
@@ -475,17 +551,60 @@
 }
 
 .featureCard {
+  position: relative;
   border-radius: 1.7rem;
   padding: 1.75rem;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(4.5rem) scale(0.96);
+  filter: blur(10px);
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+}
+
+.featureCardVisible {
+  opacity: 1;
+  animation: featureCardDropIn 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--feature-delay, 0ms) forwards;
+}
+
+.featureCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      color-mix(in srgb, var(--accent-blue) 0%, transparent) 0%,
+      color-mix(in srgb, var(--accent-blue) 10%, transparent) 48%,
+      color-mix(in srgb, white 22%, transparent) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  opacity: 0.18;
+  transition: opacity 240ms ease;
+  pointer-events: none;
+  animation: featureCardGlow 10s ease-in-out infinite;
+}
+
+.featureCard:nth-child(2)::before {
+  animation-delay: 1.2s;
+}
+
+.featureCard:nth-child(3)::before {
+  animation-delay: 2.4s;
 }
 
 .featureCard:hover,
 .heroPhotoCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.09);
+  transform: translateY(-8px);
+  box-shadow: 0 28px 56px rgba(15, 23, 42, 0.12);
+}
+
+.featureCard:hover {
+  border-color: color-mix(in srgb, var(--accent-blue) 32%, var(--border));
+}
+
+.featureCard:hover::before {
+  opacity: 0.42;
 }
 
 .featureAccent {
@@ -494,6 +613,9 @@
   background: color-mix(in srgb, var(--accent-blue) 10%, transparent);
   color: var(--accent-blue);
   margin-bottom: 0.85rem;
+  transition:
+    transform 240ms ease,
+    background-color 240ms ease;
 }
 
 .featureIcon {
@@ -506,6 +628,30 @@
   margin-bottom: 1rem;
   background: var(--primary-soft);
   color: var(--primary);
+  animation: featureIconPulse 7s ease-in-out infinite;
+  transition:
+    transform 240ms ease,
+    background-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.featureCard:nth-child(2) .featureIcon {
+  animation-delay: 1.1s;
+}
+
+.featureCard:nth-child(3) .featureIcon {
+  animation-delay: 2.2s;
+}
+
+.featureCard:hover .featureIcon {
+  transform: translateY(-4px) scale(1.06) rotate(-6deg);
+  background: color-mix(in srgb, var(--accent-blue) 18%, transparent);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--accent-blue) 20%, transparent);
+}
+
+.featureCard:hover .featureAccent {
+  transform: translateX(4px);
+  background: color-mix(in srgb, var(--accent-blue) 16%, transparent);
 }
 
 .featureCard h3 {
@@ -516,6 +662,54 @@
 .featureCard p {
   color: var(--text-muted);
   line-height: 1.8;
+}
+
+@keyframes featureCardGlow {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.14;
+  }
+
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.26;
+  }
+}
+
+@keyframes featureIconPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 color-mix(in srgb, var(--accent-blue) 0%, transparent);
+    background: var(--primary-soft);
+  }
+
+  50% {
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-blue) 18%, transparent);
+    background: color-mix(in srgb, var(--accent-blue) 14%, transparent);
+  }
+}
+
+@keyframes featureCardDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(4.5rem) scale(0.96);
+    filter: blur(10px);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translateY(-0.35rem) scale(1.01);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 @media (max-width: 980px) {
@@ -542,6 +736,10 @@
 
   .heroVisual {
     justify-items: center;
+  }
+
+  .heroPhotoCard {
+    width: min(100%, 40rem);
   }
 }
 
@@ -625,8 +823,8 @@
     width: 100%;
   }
 
-  .heroImage {
-    height: 26rem;
+  .heroPhotoStage {
+    aspect-ratio: 4 / 3;
   }
 
   .heroBackdrop {
@@ -669,5 +867,40 @@
   .featureCard,
   .heroPhotoCard {
     padding: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroHeadlineLetter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .heroImageSlide {
+    transition: none;
+  }
+
+  .featureCard {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+
+  .featureCardVisible {
+    animation: none;
+  }
+
+  .featureCard:hover,
+  .heroPhotoCard:hover,
+  .featureCard:hover .featureIcon,
+  .featureCard:hover .featureAccent {
+    transform: none;
+  }
+
+  .featureCard::before,
+  .featureIcon {
+    animation: none;
   }
 }

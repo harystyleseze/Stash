@@ -52,7 +52,7 @@ const Flexible = () => {
         e.preventDefault()
         setValidationError(null)
         if (isWrongNetwork) {
-            await switchToBaseSepolia().catch(() => {})
+            await switchToBaseSepolia().catch(() => { })
             return
         }
         let amountRaw: bigint
@@ -94,13 +94,13 @@ const Flexible = () => {
                     <h1 className='header-title'>Flexible Savings Vault</h1>
                     <p className='header-subtitle'>Deposit USDC into a non-custodial ERC-4626 vault on Base. Withdraw any time, no lock-up.</p>
                 </div>
-                <div className='apy-display'>
+                {/* <div className='apy-display'>
                     <span className='apy-label'>VAULT TYPE</span>
                     <div className='apy-value'>
                         <span className='apy-percentage' style={{ fontSize: '20px' }}>ERC-4626</span>
                         <TrendingUp size={20} className='apy-arrow' />
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Summary Card */}
@@ -205,10 +205,10 @@ const Flexible = () => {
 
                 <div className='right-section'>
                     <div className='info-card'>
-                        <div className='info-row'>
+                        {/* <div className='info-row'>
                             <span className='info-label'>Vault standard</span>
                             <span className='info-value'>ERC-4626 (svfUSDC)</span>
-                        </div>
+                        </div> */}
                         <div className='info-row'>
                             <span className='info-label'>Lock-up</span>
                             <span className='info-value'>None — withdraw anytime</span>

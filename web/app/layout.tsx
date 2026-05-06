@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Stash",
   description: "Stablecoin neobank for saving, sending, and growing digital dollars.",
+  openGraph: {
+    images: ['/opengraph-image'],
+  },
 };
 
 export default function RootLayout({

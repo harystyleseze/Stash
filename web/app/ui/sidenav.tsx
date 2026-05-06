@@ -25,6 +25,7 @@ const Sidebar = ({ isOpen, onNavigate }: SidebarProps) => {
                     onClick={onNavigate}
                     style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'inherit' }}
                     aria-label="Go to landing page"
+                    className="brand-logo"
                 >
                     <span className="brand-pill">
                         <span className="brand-core" />

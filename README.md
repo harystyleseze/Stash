@@ -195,9 +195,9 @@ No project ID, no API keys, no wallet-vendor signups required.
 | Contract | Address | Source verified |
 |---|---|---|
 | USDC (Circle-native) | [`0x036CbD53842c5426634e7929541eC2318f3dCF7e`](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e) | — |
-| FlexibleVault (svfUSDC) | [`0x56fB93B19bBaF700A4a9214388d664d1A25A699E`](https://sepolia.basescan.org/address/0x56fB93B19bBaF700A4a9214388d664d1A25A699E) | ✅ |
-| FixedVault | [`0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8`](https://sepolia.basescan.org/address/0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8) | ✅ |
-| P2PTransfer | [`0x0C8d08a5d2e107b6f0F09025230C8458376062e7`](https://sepolia.basescan.org/address/0x0C8d08a5d2e107b6f0F09025230C8458376062e7) | ✅ |
+| FlexibleVault (svfUSDC) | [`0x92E086786d5f99878197374818900e0691E55a46`](https://sepolia.basescan.org/address/0x92E086786d5f99878197374818900e0691E55a46) | ✅ |
+| FixedVault | [`0xc1B39ecC9c7846413c01B696142613525e752924`](https://sepolia.basescan.org/address/0xc1B39ecC9c7846413c01B696142613525e752924) | ✅ |
+| P2PTransfer | [`0x1682349d97F43f49ed29549A929b5Ad4A6a8e881`](https://sepolia.basescan.org/address/0x1682349d97F43f49ed29549A929b5Ad4A6a8e881) | ✅ |
 
 
 ## 9. Tech stack

@@ -4,7 +4,6 @@ pragma solidity 0.8.26;
 import {ForkBase} from "./ForkBase.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-
 abstract contract BaseForkBase is ForkBase {
     address internal constant USDC_BASE = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913;
 

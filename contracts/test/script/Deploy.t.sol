@@ -9,7 +9,6 @@ import {FixedVault} from "../../src/FixedVault.sol";
 import {P2PTransfer} from "../../src/P2PTransfer.sol";
 
 contract DeployScriptTest is Test {
-
     uint256 internal constant TEST_PK = uint256(keccak256("stash.scripts.shared.deployer"));
     address internal deployer;
     address internal constant DEAD = 0x000000000000000000000000000000000000dEaD;

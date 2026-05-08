@@ -32,24 +32,17 @@ contract FlexibleVaultInvariantsTest is Test {
         targetSelector(FuzzSelector({addr: address(handler), selectors: selectors}));
     }
 
-    /// @notice The vault's USDC balance must always be >= totalAssets (they should be equal
-    ///         since totalAssets is defined as balanceOf(this) in OZ ERC4626; this invariant
-    ///         guards against any subclass that overrides differently).
     function invariant_balanceCoversAccounting() public view {
         assertGe(usdc.balanceOf(address(vault)), vault.totalAssets());
     }
 
-    /// @notice After any operation, a 1 USDC deposit must yield > 0 shares. This is the
-    ///         first-depositor inflation attack invariant: the classical griefing scenario
-    ///         causes 1-USDC deposits to round down to 0 shares; with `_decimalsOffset = 6`
-    ///         plus the seed-burn performed in setUp(), this never happens.
     function invariant_inflationAttackFails() public view {
         // previewDeposit(1 USDC) must mint a non-zero amount of shares.
         uint256 shares = vault.previewDeposit(1e6);
         assertGt(shares, 0, "1 USDC deposit must yield > 0 shares under any prior state");
     }
 
-    /// @notice Total share supply is non-zero (seed shares are permanent).
+    // Total share supply is non-zero (seed shares are permanent).
     function invariant_totalSupplyNonZero() public view {
         assertGt(vault.totalSupply(), 0);
     }

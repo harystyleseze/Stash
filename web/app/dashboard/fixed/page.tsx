@@ -42,17 +42,19 @@ const Fixed = () => {
     const lockSeconds = DURATION_TO_SECONDS[duration];
 
     useEffect(() => {
-        if (depositFlow.isSuccess || withdrawFlow.isSuccess) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setAmountInput('');
-            void refetchPositions();
-            const t = setTimeout(() => {
-                depositFlow.reset();
-                withdrawFlow.reset();
-            }, 4000);
-            return () => clearTimeout(t);
-        }
-    }, [depositFlow, withdrawFlow, refetchPositions]);
+        if (!depositFlow.isSuccess && !withdrawFlow.isSuccess) return;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setAmountInput('');
+        void refetchPositions();
+        const t = setTimeout(() => {
+            depositFlow.reset();
+            withdrawFlow.reset();
+        }, 4000);
+        return () => clearTimeout(t);
+        // Depend only on the success flags — `depositFlow`/`withdrawFlow` objects
+        // are recreated on every render and would cause an infinite re-render loop.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [depositFlow.isSuccess, withdrawFlow.isSuccess]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

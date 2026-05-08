@@ -5,7 +5,7 @@ import {Test} from "forge-std/Test.sol";
 import {FlexibleVault} from "../../src/FlexibleVault.sol";
 import {MockUSDC} from "../helpers/MockUSDC.sol";
 
-/// @dev Handler for FlexibleVault invariant tests. Constrained random-op surface.
+// Handler for FlexibleVault invariant tests. Constrained random-op surface.
 contract FlexibleVaultHandler is Test {
     FlexibleVault public vault;
     MockUSDC public usdc;

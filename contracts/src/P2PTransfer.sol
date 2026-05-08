@@ -17,16 +17,20 @@ contract P2PTransfer is ReentrancyGuard {
     error SelfTransfer();
     error ZeroAmount();
     error MemoTooLong(uint256 length);
+    error InvalidRecipient();
+    error ZeroAsset();
 
     event Sent(address indexed from, address indexed to, uint256 amount, string memo);
 
     constructor(IERC20 asset_) {
+        if (address(asset_) == address(0)) revert ZeroAsset();
         asset = asset_;
     }
 
     function send(address to, uint256 amount, string calldata memo) external nonReentrant {
         if (to == address(0)) revert ZeroAddress();
         if (to == msg.sender) revert SelfTransfer();
+        if (to == address(this) || to == address(asset)) revert InvalidRecipient();
         if (amount == 0) revert ZeroAmount();
         if (bytes(memo).length > MAX_MEMO_BYTES) revert MemoTooLong(bytes(memo).length);
 

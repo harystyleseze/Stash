@@ -5,8 +5,6 @@ import {TestBase} from "./helpers/TestBase.sol";
 import {FlexibleVault} from "../src/FlexibleVault.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/// @dev Unit + fuzz tests for FlexibleVault against MockUSDC.
-///      Fork equivalent (against real Circle USDC) lives in test/fork/FlexibleVault.fork.t.sol.
 contract FlexibleVaultTest is TestBase {
     FlexibleVault internal vault;
 
@@ -19,8 +17,6 @@ contract FlexibleVaultTest is TestBase {
         _giveUsdc(attacker, USDC_TEN_THOUSAND * 2);
     }
 
-    // --- Wiring + accounting -----------------------------------------------------------------
-
     function test_AssetIsUSDC() public view {
         assertEq(address(vault.asset()), address(usdc));
     }
@@ -30,7 +26,6 @@ contract FlexibleVaultTest is TestBase {
         assertEq(vault.symbol(), "svfUSDC");
     }
 
-    /// @dev `decimals` = underlying decimals + offset = 6 + 6 = 12.
     function test_DecimalsOffsetIsSix() public view {
         assertEq(vault.decimals(), 12);
     }
@@ -45,8 +40,6 @@ contract FlexibleVaultTest is TestBase {
         _approveAndFlexDeposit(vault, alice, 200 * USDC_ONE);
         assertEq(vault.totalAssets(), usdc.balanceOf(address(vault)));
     }
-
-    // --- Happy-path mutations -----------------------------------------------------------------
 
     function test_DepositMintsShares() public {
         uint256 shares = _approveAndFlexDeposit(vault, alice, USDC_HUNDRED);
@@ -77,7 +70,6 @@ contract FlexibleVaultTest is TestBase {
     }
 
     function test_MintReceivesShares() public {
-        // offset=6, underlying=6, share decimals = 12; target 50 shares (50 * 10^12).
         uint256 targetShares = 50 * 1e12;
         vm.startPrank(alice);
         usdc.approve(address(vault), type(uint256).max);
@@ -98,15 +90,12 @@ contract FlexibleVaultTest is TestBase {
     }
 
     function test_ZeroDepositReturnsZeroShares() public {
-        // OZ ERC4626 allows zero-amount deposit (returns 0 shares) once allowance is set.
         vm.startPrank(alice);
         usdc.approve(address(vault), 0);
         uint256 shares = vault.deposit(0, alice);
         vm.stopPrank();
         assertEq(shares, 0);
     }
-
-    // --- Failure flows -----------------------------------------------------------------------
 
     function test_RevertDepositWithoutApproval() public {
         // Fresh actor, no approval call at all.
@@ -137,8 +126,6 @@ contract FlexibleVaultTest is TestBase {
 
     function test_RevertWithdrawFromAnotherUserWithoutAllowance() public {
         _approveAndFlexDeposit(vault, alice, USDC_HUNDRED);
-
-        // Bob tries to pull 50 USDC *out of* alice's position. Must fail — no ERC-20 share allowance.
         vm.prank(bob);
         vm.expectRevert(); // ERC20InsufficientAllowance on the share token
         vault.withdraw(50 * USDC_ONE, bob, alice);
@@ -151,10 +138,6 @@ contract FlexibleVaultTest is TestBase {
         vault.redeem(shares + 1, alice, alice);
     }
 
-    // --- Inflation attack (P0 security property) ---------------------------------------------
-
-    /// @notice Classic first-depositor inflation attack. Attacker deposits 1 wei + donates heavily;
-    ///         a victim deposit must still receive non-zero shares approximately equal to their stake.
     function test_FirstDepositorInflationAttackFails() public {
         vm.startPrank(attacker);
         usdc.approve(address(vault), 1);
@@ -173,9 +156,6 @@ contract FlexibleVaultTest is TestBase {
     }
 
     // --- Fuzz --------------------------------------------------------------------------------
-
-    /// @dev Fuzz the donation scale. For any donation up to the attacker's budget, a subsequent
-    ///      victim deposit yields non-zero shares and is ~fully redeemable.
     function testFuzz_InflationAttackFailsAtAnyDonationScale(uint96 donation) public {
         donation = uint96(bound(uint256(donation), 1, USDC_TEN_THOUSAND));
 
@@ -194,7 +174,7 @@ contract FlexibleVaultTest is TestBase {
         assertGt(redeemable, (victimDeposit * 99) / 100);
     }
 
-    /// @dev Fuzz a deposit → redeem round-trip. Redeeming all shares should return ~deposited assets.
+    // Fuzz a deposit → redeem round-trip. Redeeming all shares should return ~deposited assets.
     function testFuzz_DepositRedeemRoundTrip(uint96 amount) public {
         amount = uint96(bound(uint256(amount), 1, USDC_TEN_THOUSAND));
         uint256 shares = _approveAndFlexDeposit(vault, alice, amount);
@@ -225,7 +205,7 @@ contract FlexibleVaultTest is TestBase {
         assertApproxEqAbs(firstOut + secondOut, amount, 2);
     }
 
-    /// @dev Fuzz multi-user interleaving. Proportional shares are preserved.
+    // Fuzz multi-user interleaving. Proportional shares are preserved.
     function testFuzz_TwoDepositorsProportionality(uint96 aDep, uint96 bDep) public {
         aDep = uint96(bound(uint256(aDep), USDC_ONE, USDC_TEN_THOUSAND));
         bDep = uint96(bound(uint256(bDep), USDC_ONE, USDC_TEN_THOUSAND));
@@ -237,5 +217,10 @@ contract FlexibleVaultTest is TestBase {
         // We verify via previewRedeem: preview(aShares) ≈ aDep, preview(bShares) ≈ bDep.
         assertApproxEqAbs(vault.previewRedeem(aShares), aDep, 2);
         assertApproxEqAbs(vault.previewRedeem(bShares), bDep, 2);
+    }
+
+    function test_Constructor_RevertWhen_AssetIsZero() public {
+        vm.expectRevert(FlexibleVault.ZeroAsset.selector);
+        new FlexibleVault(IERC20(address(0)), "Stash Flexible USDC", "svfUSDC");
     }
 }

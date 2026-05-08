@@ -8,13 +8,8 @@ import {FlexibleVault} from "../../src/FlexibleVault.sol";
 import {FixedVault} from "../../src/FixedVault.sol";
 import {P2PTransfer} from "../../src/P2PTransfer.sol";
 
-/// @dev Exercises script/Deploy.s.sol end-to-end. Uses a fresh in-test private key and pre-funds
-///      the corresponding deployer address with 1 USDC (required for the seed-burn).
 contract DeployScriptTest is Test {
-    /// @dev Shared across Deploy.t.sol and DeployMockUSDC.t.sol so concurrent test contracts
-    ///      writing PRIVATE_KEY via vm.setEnv never race on *different* values. The consequential
-    ///      per-deployer state (balances) is isolated naturally because each test deploys its own
-    ///      MockUSDC instance.
+
     uint256 internal constant TEST_PK = uint256(keccak256("stash.scripts.shared.deployer"));
     address internal deployer;
     address internal constant DEAD = 0x000000000000000000000000000000000000dEaD;

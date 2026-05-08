@@ -4,8 +4,6 @@ pragma solidity 0.8.26;
 import {BaseSepoliaForkBase} from "../helpers/BaseSepoliaForkBase.sol";
 import {FlexibleVault} from "../../src/FlexibleVault.sol";
 
-/// @dev Fork tests for FlexibleVault against real Circle-native USDC on Base Sepolia.
-///      Opt in with `BASE_SEPOLIA_RPC_URL`.
 contract FlexibleVaultBaseSepoliaForkTest is BaseSepoliaForkBase {
     FlexibleVault internal vault;
 

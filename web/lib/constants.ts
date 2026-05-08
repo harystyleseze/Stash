@@ -1,4 +1,4 @@
-export const DEPLOYMENT_BLOCK = 40_599_260n;
+export const DEPLOYMENT_BLOCK = 41_210_904n;
 
 export const USDC_DECIMALS = 6;
 

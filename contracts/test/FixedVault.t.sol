@@ -3,9 +3,8 @@ pragma solidity 0.8.26;
 
 import {TestBase} from "./helpers/TestBase.sol";
 import {FixedVault} from "../src/FixedVault.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/// @dev Unit + fuzz tests for FixedVault against MockUSDC.
-///      Fork equivalent lives in test/fork/FixedVault.fork.t.sol.
 contract FixedVaultTest is TestBase {
     FixedVault internal vault;
     uint256 internal lock30;
@@ -87,9 +86,6 @@ contract FixedVaultTest is TestBase {
     }
 
     function test_RevertDepositAtUint128BoundaryMinusOne() public {
-        // Right at the allowed boundary: uint128 max is fine (accounting-wise) if user has allowance + balance.
-        // We don't give that much USDC, so this reverts on insufficient balance. Boundary behaviour
-        // verified by the next test.
         uint256 max = type(uint128).max;
         vm.startPrank(alice);
         usdc.approve(address(vault), max);
@@ -274,7 +270,8 @@ contract FixedVaultTest is TestBase {
     // --- Fuzz ---------------------------------------------------------------------------------
 
     function testFuzz_DepositAndWithdraw(uint96 amount, uint8 lockChoice) public {
-        vm.assume(amount > 0);
+        // Bound to >= MIN_DEPOSIT so we exercise the success path (boundary covered separately).
+        amount = uint96(bound(uint256(amount), vault.MIN_DEPOSIT(), uint256(type(uint96).max)));
 
         uint256 dur;
         uint256 r = lockChoice % 3;
@@ -303,7 +300,7 @@ contract FixedVaultTest is TestBase {
     /// @dev Fuzz many positions from the same user, ensuring each is independently correct.
     function testFuzz_ManyPositionsFromOneUser(uint8 count, uint96 perPosition) public {
         count = uint8(bound(uint256(count), 1, 10));
-        perPosition = uint96(bound(uint256(perPosition), 1, USDC_HUNDRED));
+        perPosition = uint96(bound(uint256(perPosition), vault.MIN_DEPOSIT(), USDC_HUNDRED));
 
         uint256 total = uint256(perPosition) * count;
         _giveUsdc(alice, total);
@@ -335,5 +332,55 @@ contract FixedVaultTest is TestBase {
         vm.prank(alice);
         vm.expectRevert(abi.encodeWithSelector(FixedVault.NotYetUnlocked.selector, unlockAt));
         vault.withdraw(id);
+    }
+
+    // --- Defensive guards (security improvements) ---------------------------------------------
+
+    function test_Deposit_RevertWhen_AmountBelowMinimum() public {
+        uint256 minDeposit = vault.MIN_DEPOSIT();
+
+        // MIN_DEPOSIT - 1 must revert
+        _giveUsdc(alice, minDeposit);
+        vm.startPrank(alice);
+        usdc.approve(address(vault), minDeposit);
+        vm.expectRevert(abi.encodeWithSelector(FixedVault.AmountBelowMinimum.selector, minDeposit - 1, minDeposit));
+        vault.deposit(minDeposit - 1, lock30);
+        vm.stopPrank();
+
+        // Exactly MIN_DEPOSIT must succeed
+        vm.startPrank(alice);
+        uint256 id = vault.deposit(minDeposit, lock30);
+        vm.stopPrank();
+        assertEq(vault.getPosition(alice, id).amount, uint128(minDeposit));
+    }
+
+    function test_GetOpenPositions_FiltersClosedPositions() public {
+        // Open three positions
+        uint256 id0 = _approveAndFixedDeposit(vault, alice, USDC_HUNDRED, lock30);
+        uint256 id1 = _approveAndFixedDeposit(vault, alice, 2 * USDC_HUNDRED, lock30);
+        uint256 id2 = _approveAndFixedDeposit(vault, alice, 3 * USDC_HUNDRED, lock30);
+
+        // Withdraw the middle one after maturity
+        _skip(31 days);
+        vm.prank(alice);
+        vault.withdraw(id1);
+
+        FixedVault.Position[] memory open = vault.getOpenPositions(alice);
+        assertEq(open.length, 2);
+        // Order must be preserved (id0 then id2)
+        assertEq(open[0].amount, uint128(USDC_HUNDRED));
+        assertEq(open[1].amount, uint128(3 * USDC_HUNDRED));
+        assertEq(open[0].withdrawn, false);
+        assertEq(open[1].withdrawn, false);
+
+        // getPositions still returns all 3 (including the withdrawn one)
+        FixedVault.Position[] memory all = vault.getPositions(alice);
+        assertEq(all.length, 3);
+        assertEq(all[id2].amount, uint128(3 * USDC_HUNDRED));
+    }
+
+    function test_Constructor_RevertWhen_AssetIsZero() public {
+        vm.expectRevert(FixedVault.ZeroAsset.selector);
+        new FixedVault(IERC20(address(0)));
     }
 }

@@ -5,9 +5,6 @@ import {Test} from "forge-std/Test.sol";
 import {FixedVault} from "../../src/FixedVault.sol";
 import {MockUSDC} from "../helpers/MockUSDC.sol";
 
-/// @dev Handler for FixedVault invariant campaign. Records every opened position's
-///      (owner, positionId, amount, unlockAt) so the invariant can verify no locked
-///      position's amount changes before its unlockAt.
 contract FixedVaultHandler is Test {
     FixedVault public vault;
     MockUSDC public usdc;

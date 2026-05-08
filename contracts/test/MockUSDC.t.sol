@@ -4,8 +4,6 @@ pragma solidity 0.8.26;
 import {Test} from "forge-std/Test.sol";
 import {MockUSDC} from "./helpers/MockUSDC.sol";
 
-/// @dev Dedicated tests for MockUSDC. Without these the `if (initialMint > 0)` branch is
-///      otherwise unreachable (the vault-level tests all use `new MockUSDC(0)`).
 contract MockUSDCTest is Test {
     address internal alice = makeAddr("alice");
     address internal bob = makeAddr("bob");

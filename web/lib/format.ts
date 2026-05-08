@@ -73,8 +73,8 @@ export function formatCountdown(seconds: number): string {
   return `${m}m ${s}s`;
 }
 
-const DEPLOYMENT_BLOCK_NUM = 40_599_260n;
-const DEPLOYMENT_TIMESTAMP = 1_714_000_000;
+const DEPLOYMENT_BLOCK_NUM = 41_210_904n;
+const DEPLOYMENT_TIMESTAMP = 1_778_190_096; // block 41,210,904 — 2026-05-07 21:41:36 UTC
 
 export function approximateDateFromBlock(blockNumber: bigint): string {
   const secondsSinceDeploy = Number(blockNumber - DEPLOYMENT_BLOCK_NUM) * 2;

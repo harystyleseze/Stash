@@ -23,9 +23,9 @@ export const RPC_URL =
 // ─── Deployed addresses (Base Sepolia) ────────────────────────────────────────
 
 export const USDC_ADDRESS = '0x036CbD53842c5426634e7929541eC2318f3dCF7e';
-export const FIXED_VAULT_ADDRESS = '0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8';
-export const FLEXIBLE_VAULT_ADDRESS = '0x56fB93B19bBaF700A4a9214388d664d1A25A699E';
-export const P2P_TRANSFER_ADDRESS = '0x0C8d08a5d2e107b6f0F09025230C8458376062e7';
+export const FIXED_VAULT_ADDRESS = '0xc1B39ecC9c7846413c01B696142613525e752924';
+export const FLEXIBLE_VAULT_ADDRESS = '0x92E086786d5f99878197374818900e0691E55a46';
+export const P2P_TRANSFER_ADDRESS = '0x1682349d97F43f49ed29549A929b5Ad4A6a8e881';
 
 // ─── ABIs ─────────────────────────────────────────────────────────────────────
 

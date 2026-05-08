@@ -3,8 +3,9 @@ pragma solidity 0.8.26;
 
 import {TestBase} from "./helpers/TestBase.sol";
 import {P2PTransfer} from "../src/P2PTransfer.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/// @dev Unit + fuzz tests for P2PTransfer against MockUSDC.
+// Unit + fuzz tests for P2PTransfer against MockUSDC.
 contract P2PTransferTest is TestBase {
     P2PTransfer internal p2p;
 
@@ -117,6 +118,8 @@ contract P2PTransferTest is TestBase {
     function testFuzz_Send(uint96 amount, address to) public {
         vm.assume(to != address(0));
         vm.assume(to != alice);
+        vm.assume(to != address(p2p));
+        vm.assume(to != address(usdc));
         vm.assume(amount > 0);
 
         _giveUsdc(alice, amount);
@@ -130,7 +133,7 @@ contract P2PTransferTest is TestBase {
         assertEq(usdc.balanceOf(to) - beforeRecipient, amount);
     }
 
-    /// @dev Fuzz memo bytes under the limit — all should succeed.
+    // Fuzz memo bytes under the limit — all should succeed.
     function testFuzz_MemoLengthBelowCapSucceeds(uint16 len) public {
         len = uint16(bound(uint256(len), 0, 256));
         string memory m = _memo(len);
@@ -138,7 +141,7 @@ contract P2PTransferTest is TestBase {
         assertEq(usdc.balanceOf(bob), USDC_ONE);
     }
 
-    /// @dev Fuzz memo bytes above the limit — all should revert.
+    // Fuzz memo bytes above the limit — all should revert.
     function testFuzz_MemoLengthAboveCapReverts(uint16 len) public {
         len = uint16(bound(uint256(len), 257, 1024));
         string memory m = _memo(len);
@@ -148,6 +151,29 @@ contract P2PTransferTest is TestBase {
         vm.expectRevert(abi.encodeWithSelector(P2PTransfer.MemoTooLong.selector, uint256(len)));
         p2p.send(bob, USDC_ONE, m);
         vm.stopPrank();
+    }
+
+    // --- Defensive guards (security improvements) ---------------------------------------------
+
+    function test_Send_RevertWhen_RecipientIsContractItself() public {
+        vm.startPrank(alice);
+        usdc.approve(address(p2p), USDC_ONE);
+        vm.expectRevert(P2PTransfer.InvalidRecipient.selector);
+        p2p.send(address(p2p), USDC_ONE, "stuck");
+        vm.stopPrank();
+    }
+
+    function test_Send_RevertWhen_RecipientIsAssetContract() public {
+        vm.startPrank(alice);
+        usdc.approve(address(p2p), USDC_ONE);
+        vm.expectRevert(P2PTransfer.InvalidRecipient.selector);
+        p2p.send(address(usdc), USDC_ONE, "stuck");
+        vm.stopPrank();
+    }
+
+    function test_Constructor_RevertWhen_AssetIsZero() public {
+        vm.expectRevert(P2PTransfer.ZeroAsset.selector);
+        new P2PTransfer(IERC20(address(0)));
     }
 
     // --- Helpers ------------------------------------------------------------------------------

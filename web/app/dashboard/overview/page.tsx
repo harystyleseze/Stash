@@ -13,6 +13,11 @@ import { BASESCAN_TX_BASE } from '@/lib/constants';
 import type { HistoryEvent } from '@/types';
 import { NgnStat } from '@/components/shared/ngn-stat';
 import { AllocationChart } from '@/components/shared/allocation-chart';
+// The overview page reuses the activity-table styles (`.recent-transactions`,
+// `.transactions-header`, `.transactions-table`, `.tx-type`, `.tx-value`) that
+// were authored in `flexible.css`. Importing here pulls them into the overview
+// route bundle so the table renders with the same card styling as on /flexible.
+import '../../ui/styles/flexible.css';
 
 const Overview = () => {
     const router = useRouter();

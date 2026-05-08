@@ -26,9 +26,6 @@ contract FixedVaultInvariantsTest is Test {
         targetSelector(FuzzSelector({addr: address(handler), selectors: selectors}));
     }
 
-    /// @notice For every opened position, if it has not been withdrawn and its unlock has not
-    ///         yet arrived, the on-chain amount must still equal the amount originally recorded.
-    ///         Captures the core promise: locked funds cannot be reduced before maturity.
     function invariant_lockedPositionsAreImmutable() public view {
         uint256 n = handler.openedCount();
         for (uint256 i = 0; i < n; i++) {
@@ -42,7 +39,7 @@ contract FixedVaultInvariantsTest is Test {
         }
     }
 
-    /// @notice Vault USDC balance must be >= sum of all unwithdrawn positions' recorded amounts.
+    // Vault USDC balance must be >= sum of all unwithdrawn positions' recorded amounts.
     function invariant_vaultBalanceCoversAllOpenPositions() public view {
         uint256 n = handler.openedCount();
         uint256 sumOpen = 0;

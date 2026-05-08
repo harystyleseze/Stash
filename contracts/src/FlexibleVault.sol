@@ -8,7 +8,11 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 
 // A flexible-savings vault. Users can deposit and withdraw freely; shares are redeemable for the same amount of underlying at any time.
 contract FlexibleVault is ERC4626, ReentrancyGuard {
-    constructor(IERC20 asset_, string memory name_, string memory symbol_) ERC20(name_, symbol_) ERC4626(asset_) {}
+    error ZeroAsset();
+
+    constructor(IERC20 asset_, string memory name_, string memory symbol_) ERC20(name_, symbol_) ERC4626(asset_) {
+        if (address(asset_) == address(0)) revert ZeroAsset();
+    }
 
     function _decimalsOffset() internal pure override returns (uint8) {
         return 6;

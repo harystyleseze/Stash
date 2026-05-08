@@ -4,7 +4,6 @@ pragma solidity 0.8.26;
 import {BaseSepoliaForkBase} from "../helpers/BaseSepoliaForkBase.sol";
 import {P2PTransfer} from "../../src/P2PTransfer.sol";
 
-/// @dev Fork tests for P2PTransfer against real Circle-native USDC on Base Sepolia.
 contract P2PTransferBaseSepoliaForkTest is BaseSepoliaForkBase {
     P2PTransfer internal p2p;
 

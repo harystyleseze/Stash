@@ -22,7 +22,6 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 ///         --verify --verifier blockscout \
 ///         --verifier-url https://sepolia-blockscout.lisk.com/api
 contract Deploy is Script {
-    /// @dev 1 USDC (6 decimals).
     uint256 internal constant SEED_AMOUNT = 1e6;
     address internal constant DEAD = 0x000000000000000000000000000000000000dEaD;
 

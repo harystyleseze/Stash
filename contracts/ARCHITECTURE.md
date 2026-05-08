@@ -90,7 +90,7 @@ All three contracts are:
 ### 3.1 FlexibleVault
 
 **Source:** `src/FlexibleVault.sol`  
-**Address (Base Sepolia):** [`0x56fB93B19bBaF700A4a9214388d664d1A25A699E`](https://sepolia.basescan.org/address/0x56fB93B19bBaF700A4a9214388d664d1A25A699E)  
+**Address (Base Sepolia):** [`0x92E086786d5f99878197374818900e0691E55a46`](https://sepolia.basescan.org/address/0x92E086786d5f99878197374818900e0691E55a46)  
 **Token symbol:** `svfUSDC` · **Token name:** `Stash Flexible USDC`  
 **Inherits:** `OZ ERC4626`, `OZ ERC20`, `OZ ReentrancyGuard`
 
@@ -137,7 +137,7 @@ ERC-4626 manages all storage via inherited `ERC20` slots (balances, allowances, 
 ### 3.2 FixedVault
 
 **Source:** `src/FixedVault.sol`  
-**Address (Base Sepolia):** [`0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8`](https://sepolia.basescan.org/address/0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8)  
+**Address (Base Sepolia):** [`0xc1B39ecC9c7846413c01B696142613525e752924`](https://sepolia.basescan.org/address/0xc1B39ecC9c7846413c01B696142613525e752924)  
 **Inherits:** `OZ ReentrancyGuard`
 
 #### Storage layout
@@ -198,7 +198,7 @@ struct Position {
 ### 3.3 P2PTransfer
 
 **Source:** `src/P2PTransfer.sol`  
-**Address (Base Sepolia):** [`0x0C8d08a5d2e107b6f0F09025230C8458376062e7`](https://sepolia.basescan.org/address/0x0C8d08a5d2e107b6f0F09025230C8458376062e7)  
+**Address (Base Sepolia):** [`0x1682349d97F43f49ed29549A929b5Ad4A6a8e881`](https://sepolia.basescan.org/address/0x1682349d97F43f49ed29549A929b5Ad4A6a8e881)  
 **Inherits:** `OZ ReentrancyGuard`
 
 #### Storage layout
@@ -320,7 +320,7 @@ Sender              USDC (ERC-20)          P2PTransfer        Recipient
 ## 5. Deployment — Base Sepolia
 
 **Network:** Base Sepolia · Chain ID `84532`  
-**Deployed:** block `40,599,260` (`0x26c7edc`)  
+**Deployed:** block `41,210,904` (`0x274d418`) · 2026-05-07 21:41:36 UTC  
 **Deployer:** `0x16941892142A9410C84b0A6CB809aAcb38259474`  
 **Deploy script:** `script/Deploy.s.sol`
 
@@ -329,9 +329,9 @@ Sender              USDC (ERC-20)          P2PTransfer        Recipient
 | Contract | Address | Explorer |
 |---|---|---|
 | **USDC** (Circle-native) | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | [BaseScan](https://sepolia.basescan.org/address/0x036CbD53842c5426634e7929541eC2318f3dCF7e) |
-| **FlexibleVault** | `0x56fB93B19bBaF700A4a9214388d664d1A25A699E` | [BaseScan](https://sepolia.basescan.org/address/0x56fB93B19bBaF700A4a9214388d664d1A25A699E) |
-| **FixedVault** | `0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8` | [BaseScan](https://sepolia.basescan.org/address/0xAc49f293D7b98119E45eCC4Fd528D480dea9F4A8) |
-| **P2PTransfer** | `0x0C8d08a5d2e107b6f0F09025230C8458376062e7` | [BaseScan](https://sepolia.basescan.org/address/0x0C8d08a5d2e107b6f0F09025230C8458376062e7) |
+| **FlexibleVault** | `0x92E086786d5f99878197374818900e0691E55a46` | [BaseScan](https://sepolia.basescan.org/address/0x92E086786d5f99878197374818900e0691E55a46) |
+| **FixedVault** | `0xc1B39ecC9c7846413c01B696142613525e752924` | [BaseScan](https://sepolia.basescan.org/address/0xc1B39ecC9c7846413c01B696142613525e752924) |
+| **P2PTransfer** | `0x1682349d97F43f49ed29549A929b5Ad4A6a8e881` | [BaseScan](https://sepolia.basescan.org/address/0x1682349d97F43f49ed29549A929b5Ad4A6a8e881) |
 
 All three contracts are source-verified on BaseScan (Etherscan V2 API, `chainid=84532`).
 
@@ -339,11 +339,11 @@ All three contracts are source-verified on BaseScan (Etherscan V2 API, `chainid=
 
 | Step | Tx hash |
 |---|---|
-| Deploy `FlexibleVault` | [`0x49b0c0...95fb7`](https://sepolia.basescan.org/tx/0x49b0c0987d9c72e517c2d36e576054209a7eb18b1e2d0b12c514ec900c895fb7) |
-| USDC `approve` (seed-burn) | [`0xbda299...70ab`](https://sepolia.basescan.org/tx/0xbda29944b52f49b1edb1f3fa28b35e46f3c8f0b9e3938a8f7cebe4336c3e70ab) |
-| Seed `deposit` (1 USDC → `0xdead`) | [`0x9a00a1...7f506`](https://sepolia.basescan.org/tx/0x9a00a1697524602f1d0506d65794f5634201395cc6b0b3e380cf8d6016a7f506) |
-| Deploy `FixedVault` | [`0x14fa57...2328`](https://sepolia.basescan.org/tx/0x14fa57d90693f806d7aebf85eb245d9adf14eaa4773283c6195fcf31932e2328) |
-| Deploy `P2PTransfer` | [`0x437b37...1894`](https://sepolia.basescan.org/tx/0x437b372675b8b7efaecc5f77102c5dd66455b7c71460c40182bd1ee001c31894) |
+| Deploy `FlexibleVault` | [`0xd49099...33db5`](https://sepolia.basescan.org/tx/0xd49099318cde8bc7cba72fb513210000ab73555ece8218ee05063ca054633db5) |
+| USDC `approve` (seed-burn) | [`0xaf3cb9...d856a`](https://sepolia.basescan.org/tx/0xaf3cb9812cf1ba485c45dec5d0156ffa486a9d314f9ab02cabd29f42c33d856a) |
+| Seed `deposit` (1 USDC → `0xdead`) | [`0x9f914d...f8165`](https://sepolia.basescan.org/tx/0x9f914d605ad9e316441dfe4f22f6d58dcf6c6f1bd3139afcd9413d06d82f8165) |
+| Deploy `FixedVault` | [`0xe7773f...e611c`](https://sepolia.basescan.org/tx/0xe7773f7db9eeb3c9dc1555bac758ed1648ed1f1b6e41f1e18e1be6c8128e611c) |
+| Deploy `P2PTransfer` | [`0xdfa3e3...e25fda`](https://sepolia.basescan.org/tx/0xdfa3e366afb2379547b30fa5f8b8c29bad4974afeb85655cc70c3cf057e25fda) |
 
 ### Constructor arguments
 

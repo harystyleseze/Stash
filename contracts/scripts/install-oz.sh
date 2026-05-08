@@ -7,8 +7,12 @@ set -euo pipefail
 OZ_VERSION="v5.1.0"
 OZ_TARBALL="https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/${OZ_VERSION}.tar.gz"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-LIB_DIR="${REPO_ROOT}/contracts/lib"
+# FOUNDRY_ROOT is the parent of scripts/ — i.e., the Foundry workspace root that
+# contains foundry.toml and lib/. (Previously this variable was misnamed
+# REPO_ROOT and the LIB_DIR concatenated an extra `contracts/` segment, which
+# incorrectly placed OZ at <root>/contracts/lib instead of <root>/lib.)
+FOUNDRY_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+LIB_DIR="${FOUNDRY_ROOT}/lib"
 TARGET="${LIB_DIR}/openzeppelin-contracts"
 
 mkdir -p "${LIB_DIR}"

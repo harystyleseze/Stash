@@ -4,7 +4,7 @@ pragma solidity 0.8.26;
 import {BaseSepoliaForkBase} from "../helpers/BaseSepoliaForkBase.sol";
 import {FixedVault} from "../../src/FixedVault.sol";
 
-/// @dev Fork tests for FixedVault against real Circle-native USDC on Base Sepolia.
+// Fork tests for FixedVault against real Circle-native USDC on Base Sepolia.
 contract FixedVaultBaseSepoliaForkTest is BaseSepoliaForkBase {
     FixedVault internal vault;
 

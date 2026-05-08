@@ -4,18 +4,11 @@ pragma solidity 0.8.26;
 import {ForkBase} from "./ForkBase.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/// @notice Fork-test base for **Base mainnet** (chain id 8453). Exercises the Stash contracts
-///         against the canonical Circle-native USDC on Base:
-///
-///             `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
-///
-///         Opt in via `BASE_MAINNET_RPC_URL`. Without it the suite skips cleanly.
+
 abstract contract BaseForkBase is ForkBase {
-    /// @notice Canonical Circle-native USDC on Base mainnet (symbol `USDC`, 6 decimals).
-    ///         Source: https://developers.circle.com/stablecoins/usdc-contract-addresses.
     address internal constant USDC_BASE = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913;
 
-    /// @notice Known USDC holder EOA on Base mainnet (~$1.14M at research time).
+    // Known USDC holder EOA on Base mainnet (~$1.14M at research time).
     address internal constant USDC_WHALE_BASE = 0xD34EA7278e6BD48DefE656bbE263aEf11101469c;
 
     string internal constant RPC_ENV = "BASE_MAINNET_RPC_URL";
